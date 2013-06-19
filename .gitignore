@@ -1,3 +1,8 @@
+# Ignore all logfiles and tempfiles.
+/log/*.log
+/tmp
+*.DS_Store
+
 *.gem
 *.rbc
 .bundle
@@ -10,7 +15,6 @@ rdoc
 spec/reports
 test/tmp
 test/version_tmp
-tmp
 
 # YARD artifacts
 .yardoc
