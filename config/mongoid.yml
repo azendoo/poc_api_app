@@ -1,20 +1,30 @@
-development:
+defaults: &defaults
   host: localhost
+  autosave: true
+  identity_map_enabled: true
+  include_root_in_json: false
+  persist_in_safe_mode: true
+  allow_dynamic_fields: false
+
+development: &development
+  <<: *defaults
+  autocreate_indexes: true
+  max_retries_on_connection_failure: 6
+  logger: true
   database: poc_api_app_development
 
 test:
+  <<: *defaults
   host: localhost
   database: poc_api_app_test
 
 # set these environment variables on your prod server
 production:
+  <<: *defaults
   host: <%= ENV['MONGOID_HOST'] %>
   port: <%= ENV['MONGOID_PORT'] %>
   username: <%= ENV['MONGOID_USERNAME'] %>
   password: <%= ENV['MONGOID_PASSWORD'] %>
   database: <%= ENV['MONGOID_DATABASE'] %>
-  # slaves:
-  #   - host: slave1.local
-  #     port: 27018
-  #   - host: slave2.local
-  #     port: 27019
+  autocreate_indexes: false
+  max_retries_on_connection_failure: 2
