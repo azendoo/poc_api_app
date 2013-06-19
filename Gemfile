@@ -5,6 +5,8 @@ gem 'rails-api'
 
 gem 'bson_ext', '1.5.2'
 gem 'oj'
+gem 'active_model_serializers'
+
 
 gem 'redis-store', '1.1.3'
 gem 'redis-rails', '3.2.3'
