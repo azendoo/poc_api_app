@@ -11,12 +11,15 @@ gem 'active_model_serializers'
 gem 'redis-store', '1.1.3'
 gem 'redis-rails', '3.2.3'
 
-gem 'devise', '2.0.4'
+gem 'devise', '2.2.4'
 gem 'doorkeeper'
 
 # db
 gem 'mongoid', '2.4.6'
 gem 'sqlite3'
+
+# api
+gem 'api-versions'
 
 group :development do
   gem 'pry-plus'
