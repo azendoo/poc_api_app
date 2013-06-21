@@ -34,16 +34,17 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
     arel (3.0.2)
+    awesome_print (1.1.0)
     bcrypt-ruby (3.0.1)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
-    bond (0.4.3)
     bson (1.5.2)
     bson_ext (1.5.2)
       bson (= 1.5.2)
     builder (3.0.4)
     coderay (1.0.9)
     columnize (0.3.6)
+    coolline (0.4.2)
     daemons (1.1.9)
     debug_inspector (0.0.2)
     debugger (1.6.0)
@@ -58,15 +59,31 @@ GEM
       railties (~> 3.1)
       warden (~> 1.2.1)
     diff-lcs (1.1.3)
+    diffy (2.1.4)
     doorkeeper (0.6.7)
       railties (~> 3.1)
     erubis (2.7.0)
     eventmachine (1.0.3)
+    grit (2.5.0)
+      diff-lcs (~> 1.1)
+      mime-types (~> 1.15)
+      posix-spawn (~> 0.3.6)
     hike (1.2.3)
+    hirb (0.7.1)
     i18n (0.6.4)
-    interception (0.3)
-    jist (1.5.1)
-      json
+    jazz_hands (0.5.0)
+      awesome_print (~> 1.1.0)
+      coderay (~> 1.0.9)
+      coolline (>= 0.4.0)
+      hirb (~> 0.7.1)
+      pry (~> 0.9.12)
+      pry-debugger (~> 0.2.2)
+      pry-doc (~> 0.4.4)
+      pry-git (~> 0.2.3)
+      pry-rails (~> 0.2.2)
+      pry-remote (>= 0.1.7)
+      pry-stack_explorer (~> 0.4.9)
+      railties (>= 3.0, < 5.0)
     journey (1.0.4)
     json (1.8.0)
     mail (2.4.4)
@@ -89,6 +106,7 @@ GEM
     oj (2.1.1)
     orm_adapter (0.4.0)
     polyglot (0.3.3)
+    posix-spawn (0.3.6)
     pry (0.9.12.2)
       coderay (~> 1.0.5)
       method_source (~> 0.8)
@@ -99,20 +117,15 @@ GEM
     pry-doc (0.4.6)
       pry (>= 0.9)
       yard (>= 0.8)
-    pry-docmore (0.1.1)
-      pry
-      pry-doc
-    pry-plus (1.0.0)
-      bond
-      jist
-      pry-debugger
-      pry-doc
-      pry-docmore
-      pry-rescue
-      pry-stack_explorer
-    pry-rescue (1.1.1)
-      interception (>= 0.3)
-      pry
+    pry-git (0.2.3)
+      diffy
+      grit
+      pry (>= 0.9.8)
+    pry-rails (0.2.2)
+      pry (>= 0.9.10)
+    pry-remote (0.1.7)
+      pry (~> 0.9)
+      slop (~> 3.0)
     pry-stack_explorer (0.4.9)
       binding_of_caller (>= 0.7)
       pry (~> 0.9.11)
@@ -204,10 +217,10 @@ DEPENDENCIES
   bson_ext (= 1.5.2)
   devise (= 2.2.4)
   doorkeeper
+  jazz_hands
   mongoid (= 2.4.6)
   mongoid-rspec (= 1.4.5)
   oj
-  pry-plus
   rails (= 3.2.5)
   rails-api
   redis-rails (= 3.2.3)

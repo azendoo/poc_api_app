@@ -22,7 +22,7 @@ gem 'sqlite3'
 gem 'api-versions'
 
 group :development do
-  gem 'pry-plus'
+  gem 'jazz_hands'
   gem 'thin'
 end
 
