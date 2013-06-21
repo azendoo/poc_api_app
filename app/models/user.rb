@@ -4,12 +4,13 @@ class User
   # :token_authenticatable, :confirmable,
   # :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
-         :recoverable, :rememberable, :trackable, :validatable
+    :recoverable, :rememberable, :trackable, :validatable,
+    :confirmable, :token_authenticatable
 
   ## Database authenticatable
-  field :email,              :type => String, :default => ""
-  field :encrypted_password, :type => String, :default => ""
-  
+  field :email,              :type => String, :null => false, :default => ""
+  field :encrypted_password, :type => String, :null => false, :default => ""
+
   ## Recoverable
   field :reset_password_token,   :type => String
   field :reset_password_sent_at, :type => Time
@@ -25,10 +26,10 @@ class User
   field :last_sign_in_ip,    :type => String
 
   ## Confirmable
-  # field :confirmation_token,   :type => String
-  # field :confirmed_at,         :type => Time
-  # field :confirmation_sent_at, :type => Time
-  # field :unconfirmed_email,    :type => String # Only if using reconfirmable
+  field :confirmation_token,   :type => String
+  field :confirmed_at,         :type => Time
+  field :confirmation_sent_at, :type => Time
+  field :unconfirmed_email,    :type => String # Only if using reconfirmable
 
   ## Lockable
   # field :failed_attempts, :type => Integer, :default => 0 # Only if lock strategy is :failed_attempts
@@ -36,5 +37,16 @@ class User
   # field :locked_at,       :type => Time
 
   ## Token authenticatable
-  # field :authentication_token, :type => String
+  field :authentication_token, :type => String
+
+  field :name, :type => String
+
+  validates_uniqueness_of             :email, case_sensitive: false
+  validates_presence_of               :email
+  validates_presence_of               :name, unless: 'self.new_record?'
+
+  has_many    :tasks,       as: :owner,       dependent: :destroy
+
+  attr_accessible :email, :name, :password, :remember_me
+
 end
