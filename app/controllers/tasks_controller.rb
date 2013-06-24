@@ -1,8 +1,7 @@
 class TasksController < ApplicationController
   include ActionController::MimeResponds
-  include ActionController::Helpers
-  include ActionController::Cookies
 
+  before_filter :authenticate_user!
   # GET /tasks
   # GET /tasks.json
   def index
