@@ -43,10 +43,11 @@ class User
 
   validates_uniqueness_of             :email, case_sensitive: false
   validates_presence_of               :email
-  validates_presence_of               :name, unless: 'self.new_record?'
+  #validates_presence_of               :name, unless: 'self.new_record?'
+  validates_uniqueness_of             :authentication_token
 
   has_many    :tasks,       as: :owner,       dependent: :destroy
 
   attr_accessible :email, :name, :password, :remember_me
-
+  before_save :ensure_authentication_token
 end
