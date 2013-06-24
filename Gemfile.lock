@@ -1,3 +1,10 @@
+GIT
+  remote: git@github.com:simonbnrd/warden.git
+  revision: cddffd188f8809b35a381fe32968cfb6158c56fe
+  specs:
+    warden (1.2.1)
+      rack (>= 1.0)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -204,8 +211,6 @@ GEM
       polyglot
       polyglot (>= 0.3.1)
     tzinfo (0.3.37)
-    warden (1.2.1)
-      rack (>= 1.0)
     yard (0.8.6.1)
 
 PLATFORMS
@@ -228,3 +233,4 @@ DEPENDENCIES
   rspec-rails (= 2.9.0)
   sqlite3
   thin
+  warden!

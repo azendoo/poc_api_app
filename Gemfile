@@ -13,7 +13,7 @@ gem 'redis-rails', '3.2.3'
 
 gem 'devise', '2.2.4'
 gem 'doorkeeper'
-
+gem 'warden', :git => 'git@github.com:simonbnrd/warden.git'
 # db
 gem 'mongoid', '2.4.6'
 gem 'sqlite3'
