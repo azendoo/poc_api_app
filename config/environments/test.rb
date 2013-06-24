@@ -1,6 +1,7 @@
 PocApiApp::Application.configure do
+  # Load global config file.
+  APP_CONFIG = YAML.load_file("#{Rails.root.to_s}/config/config.yml")[Rails.env]
   # Settings specified here will take precedence over those in config/application.rb
-
   # The test environment is used exclusively to run your application's
   # test suite. You never need to work with it otherwise. Remember that
   # your test database is "scratch space" for the test suite and is wiped

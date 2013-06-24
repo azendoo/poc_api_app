@@ -1,6 +1,7 @@
 PocApiApp::Application.configure do
+  # Load global config file.
+  APP_CONFIG = YAML.load_file("#{Rails.root.to_s}/config/config.yml")[Rails.env]
   # Settings specified here will take precedence over those in config/application.rb
-
   # Code is not reloaded between requests
   config.cache_classes = true
 

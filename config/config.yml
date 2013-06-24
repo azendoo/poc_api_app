@@ -1,0 +1,28 @@
+defaults: &defaults
+  app_name: poc_api_app
+  user_inactivity_timeout: 7200
+
+development: &development
+  <<: *defaults
+  js_request_delay_timer: '500'
+  redis_server:
+    password: 'azendoo'
+    host: '127.0.0.1'
+    port: '6379'
+
+precompile:
+  <<: *development
+
+test:
+  <<: *defaults
+  redis_server:
+    password: azendoo
+    host: '127.0.0.1'
+    port: '6379'
+
+production:
+  <<: *defaults
+  redis_server:
+    host: '127.0.0.1'
+    password: azendoo
+    port: '6379'
