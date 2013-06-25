@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  skip_before_filter :authenticate_user!, :only => [:create]
+  before_filter :authenticate_user!, :except => [:create]
 
   # GET /users
   # GET /users.json

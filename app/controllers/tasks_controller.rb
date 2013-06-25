@@ -2,8 +2,10 @@ class TasksController < ApplicationController
   include ActionController::MimeResponds
 
   before_filter :authenticate_user!
+
   # GET /tasks
   # GET /tasks.json
+
   def index
     @tasks = Task.all
 

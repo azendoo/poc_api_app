@@ -1,5 +1,6 @@
 class SessionsController < Devise::SessionsController
   include Devise::Controllers::Helpers
+
   prepend_before_filter :require_no_authentication, :only => [:create]
   before_filter :ensure_params_exist
   respond_to :json
@@ -10,7 +11,7 @@ class SessionsController < Devise::SessionsController
     return invalid_login_attempt unless resource
 
     if resource.valid_password?(params[:user][:password])
-      binding.pry
+
       sign_in(resource_name, resource)
       render json: {
         success: true,
@@ -24,6 +25,7 @@ class SessionsController < Devise::SessionsController
   end
 
   def destroy
+    resource.reset_authentication_token!
     sign_out(resource_name)
   end
 
