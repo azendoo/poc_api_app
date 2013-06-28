@@ -6,7 +6,7 @@ This project is just a sandbox where I'm trying to play with the following gems 
 * Rails-API
 * Oj
 * ActiveModel::Serializer
-* Devise
+* Clearance (?)
 * Doorkeeper
 * Mongoid
 * RSpec
