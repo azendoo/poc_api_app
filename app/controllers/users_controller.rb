@@ -1,12 +1,14 @@
 class UsersController < ApplicationController
-  respond_to :json
   before_filter :authenticate_user!, :except => [:create, :new]
+
+  respond_to :json
+
   # GET /users
   # GET /users.json
   def index
     @users = User.all
 
-    render json: @users
+    render json: @users#, :each_serializer => UserSerializer
   end
 
   # GET /users/1
@@ -57,4 +59,5 @@ class UsersController < ApplicationController
 
     head :no_content
   end
+
 end
