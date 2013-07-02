@@ -1,4 +1,4 @@
 PocApiApp::Application.routes.draw do
   resources :users
-  resources :tasks
+  resources :tasks, except: :edit
 end
