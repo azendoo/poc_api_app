@@ -5,7 +5,6 @@ class TokensController < ApplicationController
   respond_to :json
 
   def create
-    binding.pry
     if @user = User.first(conditions: {email: params[:user][:email]})
       @user.ensure_authentication_token!
 

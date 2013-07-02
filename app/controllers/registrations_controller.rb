@@ -3,7 +3,7 @@ class RegistrationsController < Devise::RegistrationsController
 
   def create
     build_resource(sign_up_params)
-    binding.pry
+
     if resource.save
       sign_up(resource_name, resource)
       render status: 200,
