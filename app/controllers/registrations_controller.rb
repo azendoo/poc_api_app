@@ -2,9 +2,7 @@ class RegistrationsController < Devise::RegistrationsController
   include Devise::Controllers::Helpers
 
   def create
-
     build_resource(sign_up_params)
-    resource.skip_confirmation!
 
     if resource.save
       sign_up(resource_name, resource)
