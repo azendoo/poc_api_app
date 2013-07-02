@@ -39,11 +39,11 @@ class User
   ## Token authenticatable
   field :authentication_token, :type => String
 
-  validates_uniqueness_of             :email, case_sensitive: false
-  validates_presence_of               :email
+  # These checks are already done by Devise on :email :
+  #validates_uniqueness_of             :email, case_sensitive: false
+  #validates_presence_of               :email
 
   has_many    :tasks,       as: :owner,       dependent: :destroy
 
   attr_accessible :email, :password, :remember_me
-
 end

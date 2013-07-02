@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   respond_to :json
-
+  before_filter :authenticate_user!, :except => [:create, :new]
   # GET /users
   # GET /users.json
   def index

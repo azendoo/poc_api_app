@@ -3,20 +3,17 @@ class RegistrationsController < Devise::RegistrationsController
 
   def create
     build_resource(sign_up_params)
-
+    binding.pry
     if resource.save
       sign_up(resource_name, resource)
       render status: 200,
-        json: { success: true,
-                info: "Registered",
+        json: { info: "Registered",
                 data: { user: resource,
                         auth_token: current_user.authentication_token } }
     else
       clean_up_passwords resource
       render status: :unprocessable_entity,
-        json: { success: false,
-                info: resource.errors,
-                data: {} }
+        json: { info: resource.errors }
     end
 
   end
