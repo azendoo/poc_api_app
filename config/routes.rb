@@ -1,5 +1,7 @@
 PocApiApp::Application.routes.draw do
 
+  root to: "home#index"
+
   devise_for :users,
     skip: [:sessions, :registrations, :password, :confirmation],
     defaults: { format: 'json' }
