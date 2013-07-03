@@ -8,7 +8,9 @@ class UsersController < ApplicationController
   def index
     @users = User.all
 
-    render json: @users#, :each_serializer => UserSerializer
+    # ugly hack, see :
+    # https://github.com/rails-api/active_model_serializers/issues/347
+    render json: @users.to_a, :each_serializer => UserSerializer
   end
 
   # GET /users/1
