@@ -11,6 +11,8 @@ class User
     :recoverable, :rememberable, :trackable, :validatable,
     :token_authenticatable
 
+  before_save :ensure_authentication_token
+
   ## Database authenticatable
   field :email,              :type => String, null: false, :default => ""
   field :encrypted_password, :type => String, null: false, :default => ""
@@ -47,7 +49,10 @@ class User
   #validates_uniqueness_of             :email, case_sensitive: false
   #validates_presence_of               :email
 
+  validates :password, :presence => true, :confirmation => true
+  validates :password_confirmation, :presence => true, :if => :password, :on => :create
+
   has_many    :tasks,       as: :owner,       dependent: :destroy
 
-  attr_accessible :email, :password, :remember_me
+  attr_accessible :email, :password, :password_confirmation, :remember_me
 end

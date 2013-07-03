@@ -60,4 +60,11 @@ class UsersController < ApplicationController
     head :no_content
   end
 
+  private
+  def resource_params
+    params.require(:user).permit(
+      :email, :password,
+      :password_confirmation, :remember_me
+    )
+  end
 end

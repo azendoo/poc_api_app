@@ -2,22 +2,14 @@ class RegistrationsController < Devise::RegistrationsController
   include Devise::Controllers::Helpers
 
   def create
-    build_resource(sign_up_params)
-
-    if resource.save
-      sign_up(resource_name, resource)
-      render status: 200,
-        json: { auth_token: current_user.authentication_token }
+    user = User.new(params[:user])
+    if user.save
+      render status: 201, json: { email: user.email, auth_token: user.authentication_token }
+      return
     else
-      clean_up_passwords resource
-      render status: :unprocessable_entity,
-        json: { info: resource.errors }
+      clean_up_passwords user
+      render status: :unprocessable_entity, json: { info: user.errors }
     end
-
-  end
-
-  def sign_up(resource_name, resource)
-    sign_in(resource_name, resource, store: false)
   end
 
 end

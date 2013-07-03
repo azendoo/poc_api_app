@@ -14,7 +14,7 @@ class TokensController < ApplicationController
         render json: { errors: @user.errors }, status: 401
       end
     else
-      render json: { errors:"Invalid login credentials" }, status: 401
+      render json: { errors:"Invalid login credentials." }, status: 401
     end
 
   end
