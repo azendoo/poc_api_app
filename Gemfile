@@ -22,7 +22,7 @@ gem 'mongoid', '2.4.6'
 gem 'sqlite3'
 
 # api
-gem 'api-versions'
+# gem 'api-versions'
 
 group :development do
   gem 'jazz_hands'
