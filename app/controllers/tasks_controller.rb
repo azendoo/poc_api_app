@@ -8,7 +8,7 @@ class TasksController < ApplicationController
   def index
     @tasks = Task.all
 
-    render json: @tasks
+    render json: @tasks.to_a, :each_serializer => TaskSerializer
   end
 
   # GET /tasks/1
@@ -30,7 +30,6 @@ class TasksController < ApplicationController
   # POST /tasks
   # POST /tasks.json
   def create
-    binding.pry
     @task = Task.new(params[:task])
     @task.user_id = current_user.id
 
@@ -47,7 +46,8 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
 
     if @task.update_attributes(params[:task])
-      head :no_content
+      response.headers['Cache-Control'] = 'no-cache'
+      render json: ''
     else
       render json: @task.errors, status: :unprocessable_entity
     end

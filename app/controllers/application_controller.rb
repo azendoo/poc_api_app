@@ -4,6 +4,7 @@ class ApplicationController < ActionController::API
 
   private
   def ensure_json_request
-    render json: '{}', status: 406 unless [Mime::ALL,Mime::JSON].include? request.format
+    response.headers['Cache-Control'] = 'no-cache'
+    render json: '', status: 406 unless [Mime::ALL,Mime::JSON].include? request.format
   end
 end

@@ -1,5 +1,6 @@
 class User
   include Mongoid::Document
+  include Mongoid::Timestamps::Created
   include ActiveModel::SerializerSupport
   # Include default devise modules. Others available are:
   # :token_authenticatable, :confirmable,
@@ -41,10 +42,6 @@ class User
 
   ## Token authenticatable
   field :authentication_token, :type => String
-
-  # These checks are already done by Devise on :email :
-  #validates_uniqueness_of             :email, case_sensitive: false
-  #validates_presence_of               :email
 
   validates :password, :presence => true, :confirmation => true
   validates :password_confirmation, :presence => true, :if => :password, :on => :create

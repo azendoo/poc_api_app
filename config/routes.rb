@@ -12,7 +12,7 @@ PocApiApp::Application.routes.draw do
     post 'users', to: 'registrations#create'
   end
 
-  resources :tasks, except: :edit
+  resources :tasks, except: [:edit, :new]
   resources :tokens, only: [:create, :destroy, :show], defaults: { format: 'json' }
 
   match 'tokens', via: :options, action: :create, controller: 'tokens', defaults: { format: 'json' }

@@ -1,5 +1,6 @@
 class Task
   include Mongoid::Document
+  include Mongoid::Timestamps::Created
   include ActiveModel::SerializerSupport
 
   field :label, :type => String
