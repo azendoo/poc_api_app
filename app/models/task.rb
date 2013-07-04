@@ -1,15 +1,13 @@
 class Task
   include Mongoid::Document
+  include ActiveModel::SerializerSupport
 
   field :label, :type => String
 
-  belongs_to :owner, :class_name => 'User'
+  belongs_to :user
 
   validates_presence_of         :label
-  validates_presence_of         :owner
-
   alias :title :label
 
   attr_accessible :label
-
 end

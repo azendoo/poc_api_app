@@ -30,7 +30,9 @@ class TasksController < ApplicationController
   # POST /tasks
   # POST /tasks.json
   def create
+    binding.pry
     @task = Task.new(params[:task])
+    @task.user_id = current_user.id
 
     if @task.save
       render json: @task, status: :created, location: @task
@@ -59,4 +61,5 @@ class TasksController < ApplicationController
 
     head :no_content
   end
+
 end
