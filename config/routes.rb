@@ -1,20 +1,14 @@
 PocApiApp::Application.routes.draw do
-
   root to: "home#index"
 
-  devise_for :users,
-    skip: [:sessions, :registrations, :password, :confirmation],
-    defaults: { format: 'json' }
-
-  resources :users, :controller => 'users', except: [:edit, :new, :create]
+  devise_for :users, controllers: { sessions: "tokens" }, skip: [:sessions, :registrations, :confirmation], defaults: { format: 'json' }
+  resources :users, controller: 'users', except: [:edit, :new, :create]
 
   devise_scope :user do
     post 'users', to: 'registrations#create'
+    post 'login', to: 'tokens#create'
+    delete 'logout', to: 'tokens#destroy'
   end
 
   resources :tasks, except: [:edit, :new]
-  resources :tokens, only: [:create, :destroy, :show], defaults: { format: 'json' }
-
-  match 'tokens', via: :options, action: :create, controller: 'tokens', defaults: { format: 'json' }
-
 end
