@@ -65,6 +65,7 @@ module PocApiApp
     # parameters by using an attr_accessible or attr_protected declaration.
     # config.active_record.whitelist_attributes = true
     config.middleware.use Rack::MethodOverride
+    config.middleware.use ActionDispatch::Flash
 
     # Enable the asset pipeline
     config.assets.enabled = true
