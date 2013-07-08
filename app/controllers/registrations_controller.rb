@@ -8,7 +8,7 @@ class RegistrationsController < Devise::RegistrationsController
       return
     else
       clean_up_passwords user
-      render status: :unprocessable_entity, json: { info: user.errors }
+      render status: :unprocessable_entity, json: { errors: user.errors }
     end
   end
 
