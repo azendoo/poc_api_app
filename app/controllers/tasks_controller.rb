@@ -1,15 +1,12 @@
 class TasksController < ApplicationController
   include ActionController::MimeResponds
 
-  before_filter :authenticate_user!
-
   # GET /tasks
   # GET /tasks.json
-
   def index
     @tasks = Task.all
 
-    render json: @tasks
+    render json: @tasks.to_a, :each_serializer => TaskSerializer
   end
 
   # GET /tasks/1
@@ -32,11 +29,12 @@ class TasksController < ApplicationController
   # POST /tasks.json
   def create
     @task = Task.new(params[:task])
+    @task.user_id = current_user.id
 
     if @task.save
       render json: @task, status: :created, location: @task
     else
-      render json: @task.errors, status: :unprocessable_entity
+      render json: { errors: @task.errors }, status: :unprocessable_entity
     end
   end
 
@@ -46,9 +44,10 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
 
     if @task.update_attributes(params[:task])
-      head :no_content
+      response.headers['Cache-Control'] = 'no-cache'
+      render json: ''
     else
-      render json: @task.errors, status: :unprocessable_entity
+      render json: { errors: @task.errors }, status: :unprocessable_entity
     end
   end
 
@@ -60,4 +59,5 @@ class TasksController < ApplicationController
 
     head :no_content
   end
+
 end
