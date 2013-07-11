@@ -67,6 +67,10 @@ module PocApiApp
     config.middleware.use Rack::MethodOverride
     config.middleware.use ActionDispatch::Flash
 
+    config.to_prepare do
+      DeviseController.respond_to :json
+    end
+
     # Enable the asset pipeline
     config.assets.enabled = true
     # Version of your assets, change this if you want to expire all your assets
