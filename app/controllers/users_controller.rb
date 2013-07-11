@@ -1,12 +1,16 @@
 class UsersController < ApplicationController
-  before_filter :authenticate_user!, :except => [:create]
+  before_filter :authenticate_user!, :except => [:create, :new]
+
+  respond_to :json
 
   # GET /users
   # GET /users.json
   def index
     @users = User.all
 
-    render json: @users
+    # ugly hack, see :
+    # https://github.com/rails-api/active_model_serializers/issues/347
+    render json: @users.to_a, :each_serializer => UserSerializer
   end
 
   # GET /users/1
@@ -33,7 +37,7 @@ class UsersController < ApplicationController
     if @user.save
       render json: @user, status: :created, location: @user
     else
-      render json: @user.errors, status: :unprocessable_entity
+      render json: { errors: @user.errors }, status: :unprocessable_entity
     end
   end
 
@@ -45,7 +49,7 @@ class UsersController < ApplicationController
     if @user.update_attributes(params[:user])
       head :no_content
     else
-      render json: @user.errors, status: :unprocessable_entity
+      render json: { errors: @user.errors }, status: :unprocessable_entity
     end
   end
 
@@ -57,4 +61,5 @@ class UsersController < ApplicationController
 
     head :no_content
   end
+
 end

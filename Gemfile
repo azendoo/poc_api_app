@@ -1,16 +1,17 @@
 source 'https://rubygems.org'
 
-gem 'rails', '3.2.5'
+gem 'rails', '3.2.6'
 gem 'rails-api'
 
 gem 'bson_ext', '1.5.2'
 gem 'oj'
 gem 'active_model_serializers'
 
+# authentication
+gem 'devise', :git => 'git@github.com:plataformatec/devise.git', :branch => 'master'
+gem 'warden', :git => 'git@github.com:hassox/warden.git', :branch => 'master'
 
-gem 'redis-store', '1.1.3'
-gem 'redis-rails', '3.2.3'
-
+# authorization
 gem 'doorkeeper'
 
 # db
@@ -18,7 +19,7 @@ gem 'mongoid', '2.4.6'
 gem 'sqlite3'
 
 # api
-gem 'api-versions'
+# gem 'api-versions'
 
 group :development do
   gem 'jazz_hands'
