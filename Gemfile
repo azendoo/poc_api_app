@@ -29,8 +29,12 @@ group :test do
   gem 'mongoid-rspec', '1.4.5'
   gem 'factory_girl_rails'
   gem 'spork'
+  gem 'guard-rspec'
+  gem 'guard-spork'
+  gem 'guard-bundler'
+  gem 'rb-fsevent', :require => false if RUBY_PLATFORM =~ /darwin/i
 end
 
 group :development, :test do
-  gem "rspec-rails", '2.9.0'
+  gem 'rspec-rails', '2.9.0'
 end
