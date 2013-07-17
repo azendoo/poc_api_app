@@ -1,7 +1,8 @@
 require 'spec_helper'
 
 describe TokensController do
-  include Devise::TestHelpers
+
+  let(:user){ FactoryGirl.create(:user)}
 
   before(:each) do
     @request.env["devise.mapping"] = Devise.mappings[:user]
@@ -9,8 +10,6 @@ describe TokensController do
   end
 
   describe "#create" do
-
-    let(:user) { FactoryGirl.create(:user) }
 
     it "should succeed with valid credentials" do
       post :create, :user => { email: user.email, password: user.password }
