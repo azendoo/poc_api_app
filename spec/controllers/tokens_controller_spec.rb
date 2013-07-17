@@ -24,4 +24,18 @@ describe TokensController do
 
   end
 
+  describe "#destroy" do
+
+    it "should succeed with valid credentials" do
+      post :destroy, :auth_token => user.authentication_token
+      response.should be_success
+    end
+
+    it "should fail with invalid credentials" do
+      post :destroy, :auth_token => user.authentication_token
+      response.status.should eq(201)
+    end
+
+  end
+
 end

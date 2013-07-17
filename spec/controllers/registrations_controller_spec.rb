@@ -7,7 +7,7 @@ describe RegistrationsController do
     @request.env["HTTP_ACCEPT"] = Mime::JSON
   end
 
-  describe "POST create" do
+  describe "#create" do
 
     it "should succeed with valid credentials" do
       post :create, :user => { email: "foo@bar.ok", password: "please", password_confirmation: "please" }
