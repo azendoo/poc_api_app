@@ -1,9 +1,8 @@
 require 'spec_helper'
 
 describe RegistrationsController do
-  include Devise::TestHelpers
 
-  before(:each) do
+  before do
     @request.env["devise.mapping"] = Devise.mappings[:user]
     @request.env["HTTP_ACCEPT"] = Mime::JSON
   end
