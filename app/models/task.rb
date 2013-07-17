@@ -5,10 +5,11 @@ class Task
 
   field :label, :type => String
 
-  belongs_to :user
-
-  validates_presence_of         :label
+  validates_presence_of :label
   alias :title :label
+
+  belongs_to :owner, :class_name => 'User'
+  validates :owner, :presence => true
 
   attr_accessible :label
 end

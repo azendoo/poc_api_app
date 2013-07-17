@@ -48,7 +48,7 @@ class User
   validates :password, :presence => true, :confirmation => true
   validates :password_confirmation, :presence => true, :if => :password, :on => :create
 
-  has_many    :tasks, dependent: :destroy
+  has_many    :tasks, as: :owner, dependent: :destroy
 
   attr_accessible :email, :password, :password_confirmation, :remember_me
 end
