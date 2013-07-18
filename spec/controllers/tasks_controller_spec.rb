@@ -1,13 +1,13 @@
 require 'spec_helper'
 
-describe TasksController, :type => :controller do
+describe TasksController do
 
   before(:each) do
     @request.env["HTTP_ACCEPT"] = Mime::JSON
     @request.env["devise.mapping"] = Devise.mappings[:user]
   end
 
-  describe "GET index" do
+  describe "#index" do
 
     context "with valid credentials" do
       before do
@@ -20,17 +20,14 @@ describe TasksController, :type => :controller do
         get :index
         response.should be_success
       end
-
     end
 
     context "with invalid credentials" do
-
       it "should fail" do
         header = ActionController::HttpAuthentication::Basic.encode_credentials("123456", nil)
         get :index
         response.status.should eq(401)
       end
-
     end
 
   end
