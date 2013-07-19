@@ -12,7 +12,7 @@ FactoryGirl.define do
   end
 
   factory :task do
-    sequence(:label) { |n| "A task ##{n}" }
-    user
+    sequence(:label) { |n| "Task number #{n}" }
+    association :user, factory: :user
   end
 end
