@@ -35,6 +35,35 @@ describe "Tasks" do
     end
   end
 
+  describe "GET /tasks/(:id)" do
+    context "with valid credentials" do
+
+      it "should succeed" do
+        authorization_header =  ActionController::HttpAuthentication::Basic.encode_credentials(user.authentication_token, nil)
+        env_headers['HTTP_AUTHORIZATION'] = authorization_header
+
+        get "/tasks/#{task.id}", nil, env_headers
+
+        response.should be_success
+        json_response.should have_json_path('task')
+        json_response.should be_json_eql({ :id => task.id, :label => task.label, :user_id => user.id }.to_json).excluding("url").at_path("task")
+      end
+    end
+
+    context "with invalid credentials" do
+
+      it "should fail" do
+        authorization_header = ActionController::HttpAuthentication::Basic.encode_credentials("123456", nil)
+        env_headers['HTTP_AUTHORIZATION'] = authorization_header
+
+        get "/tasks/#{task.id}", nil, env_headers
+
+        response.status.should eq(401)
+        json_response.should have_json_path('errors')
+      end
+    end
+  end
+
   describe "POST /tasks" do
     context "with valid credentials" do
 
@@ -64,6 +93,5 @@ describe "Tasks" do
       end
     end
   end
-
 
 end
