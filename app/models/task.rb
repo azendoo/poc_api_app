@@ -8,8 +8,8 @@ class Task
   validates_presence_of :label
   alias :title :label
 
-  belongs_to :owner, :class_name => 'User'
-  validates :owner, :presence => true
+  belongs_to :user
+  validates :user, :presence => true
 
   attr_accessible :label
 end
