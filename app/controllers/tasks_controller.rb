@@ -28,9 +28,7 @@ class TasksController < ApplicationController
   # POST /tasks
   # POST /tasks.json
   def create
-    @task = Task.new(params[:task])
-    @task.user_id = current_user.id
-
+    @task = current_user.tasks.build(params[:task])
     if @task.save
       render json: @task, status: :created, location: @task
     else

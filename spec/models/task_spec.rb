@@ -12,13 +12,13 @@ describe Task do
 
   it "should require a label" do
     t = Task.new(@attr.merge(label: nil))
-    t.owner = user
+    t.user = user
     t.should_not be_valid
   end
 
   it "should create a new instance given valid attributes" do
     t = Task.new(@attr)
-    t.owner = user
+    t.user = user
     t.should be_valid
   end
 
