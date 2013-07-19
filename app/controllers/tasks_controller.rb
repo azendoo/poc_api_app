@@ -28,7 +28,9 @@ class TasksController < ApplicationController
   # POST /tasks
   # POST /tasks.json
   def create
-    @task = current_user.tasks.build(params[:task])
+    @task = Task.new(params[:task])
+    @task.user_id = current_user.id
+
     if @task.save
       render json: @task, status: :created, location: @task
     else
@@ -42,8 +44,7 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
 
     if @task.update_attributes(params[:task])
-      response.headers['Cache-Control'] = 'no-cache'
-      render json: ''
+      render json: @task, status: :created, location: @task
     else
       render json: { errors: @task.errors }, status: :unprocessable_entity
     end
