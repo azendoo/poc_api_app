@@ -80,28 +80,28 @@ describe "Tasks" do
       end
     end
 
-    context "with invalid credentials" do
+        context "with invalid credentials" do
 
-      it "should fail" do
-        authorization_header = ActionController::HttpAuthentication::Basic.encode_credentials("123456", nil)
-        env_headers['HTTP_AUTHORIZATION'] = authorization_header
+          it "should fail" do
+          authorization_header = ActionController::HttpAuthentication::Basic.encode_credentials("123456", nil)
+          env_headers['HTTP_AUTHORIZATION'] = authorization_header
 
-        post '/tasks', { :task => task }, env_headers
+          post '/tasks', { :task => task }, env_headers
 
-        response.status.should eq(401)
-        json_response.should have_json_path('errors')
+          response.status.should eq(401)
+          json_response.should have_json_path('errors')
+          end
       end
     end
-  end
 
-  describe "PUT /tasks/(:id)" do
-    context "with valid credentials" do
+    describe "PUT /tasks/(:id)" do
+      context "with valid credentials" do
 
-      it "should succeed" do
-        authorization_header =  ActionController::HttpAuthentication::Basic.encode_credentials(user.authentication_token, nil)
-        env_headers['HTTP_AUTHORIZATION'] = authorization_header
+        it "should succeed" do
+          authorization_header =  ActionController::HttpAuthentication::Basic.encode_credentials(user.authentication_token, nil)
+          env_headers['HTTP_AUTHORIZATION'] = authorization_header
 
-        put "/tasks/#{task.id}",  { task: { label: "Boring task" }}, env_headers
+          put "/tasks/#{task.id}",  { task: { label: "Boring task" }}, env_headers
 
         response.should be_success
         json_response.should have_json_path('task')
@@ -123,5 +123,32 @@ describe "Tasks" do
     end
   end
 
+  describe "DELETE /tasks/(:id)" do
+    context "with valid credentials" do
 
+      it "should succeed" do
+        authorization_header =  ActionController::HttpAuthentication::Basic.encode_credentials(user.authentication_token, nil)
+        env_headers['HTTP_AUTHORIZATION'] = authorization_header
+
+        delete "/tasks/#{task.id}", nil, env_headers
+
+        response.should be_success
+        Task.count.should eq(0)
+      end
+    end
+
+    context "with invalid credentials" do
+
+      it "should fail" do
+        authorization_header = ActionController::HttpAuthentication::Basic.encode_credentials("123456", nil)
+        env_headers['HTTP_AUTHORIZATION'] = authorization_header
+
+        delete "/tasks/#{task.id}", nil, env_headers
+
+        response.status.should eq(401)
+        json_response.should have_json_path('errors')
+        Task.count.should eq(1)
+      end
+    end
+  end
 end
