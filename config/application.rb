@@ -71,6 +71,8 @@ module PocApiApp
       DeviseController.respond_to :json
     end
 
+    config.exceptions_app = self.routes
+
     # Enable the asset pipeline
     config.assets.enabled = true
     # Version of your assets, change this if you want to expire all your assets
