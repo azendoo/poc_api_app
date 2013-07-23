@@ -66,12 +66,12 @@ module PocApiApp
     # config.active_record.whitelist_attributes = true
     config.middleware.use Rack::MethodOverride
     config.middleware.use ActionDispatch::Flash
+    config.middleware.delete ActionDispatch::DebugExceptions
 
     config.to_prepare do
       DeviseController.respond_to :json
     end
 
-    config.exceptions_app = self.routes
 
     # Enable the asset pipeline
     config.assets.enabled = true
