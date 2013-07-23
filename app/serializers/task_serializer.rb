@@ -1,5 +1,8 @@
 class TaskSerializer < ActiveModel::Serializer
-  attributes :id, :label, :created_at, :user_id, :url
+  embed :ids, include: true
+  attributes :id, :label, :created_at, :url
+
+  has_one :user, embeds: :ids, include: false
 
   def url
     task_url(object)
