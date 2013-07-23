@@ -4,7 +4,12 @@ class ApplicationController < ActionController::API
   before_filter :authenticate_user!, :check_token_timeout
   after_filter :update_last_activity
 
+  rescue_from Mongoid::Errors::DocumentNotFound, BSON::InvalidObjectId do |exception|
+    render json: { errors: "Not found." }, :status => 404
+  end
+
   private
+
   def ensure_json_request
     response.headers['Cache-Control'] = 'no-cache'
     render json: '', status: 406 unless [Mime::ALL,Mime::JSON].include? request.format
