@@ -12,8 +12,4 @@ PocApiApp::Application.routes.draw do
 
   resources :tasks, except: [:edit, :new]
 
-  # custom routes for json responses :
-  match '/404', to: 'errors#not_found'
-  match '/422', to: 'errors#unprocessable'
-  match '/500', to: 'errors#internal_server'
 end
