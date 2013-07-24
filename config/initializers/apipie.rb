@@ -1,5 +1,6 @@
 Apipie.configure do |config|
   config.app_name                = "PocApiApp"
+  config.app_info                = "PoC API - draft"
   config.api_base_url            = ""
   config.doc_base_url            = "/apipie"
   # were is your API defined?

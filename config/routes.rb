@@ -1,4 +1,5 @@
 PocApiApp::Application.routes.draw do
+  apipie
   root to: "home#index"
 
   devise_for :users, controllers: { sessions: "tokens" }, skip: [:sessions, :registrations, :confirmation], defaults: { format: 'json' }
