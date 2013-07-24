@@ -45,10 +45,7 @@ class User
   ## Token authenticatable
   field :authentication_token, :type => String
 
-  validates :password, :presence => true, :confirmation => true
-  validates :password_confirmation, :presence => true, :if => :password, :on => :create
-
   has_many    :tasks, dependent: :destroy
 
-  attr_accessible :email, :password, :password_confirmation, :remember_me
+  attr_accessible :email, :password, :remember_me
 end
