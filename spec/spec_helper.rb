@@ -18,7 +18,7 @@ Spork.prefork do
 
   RSpec.configure do |config|
 
-    config.after(:each) do
+    config.before(:each) do
       Mongoid.master.collections.reject { |c| c.name == 'system.indexes'}.each(&:drop)
     end
 
