@@ -3,8 +3,19 @@ class UsersController < ApplicationController
 
   respond_to :json
 
+  resource_description do
+    short 'Users related endpoints'
+    formats ['json']
+
+    error 422, "Unprocessable entity"
+    error 401, "Unauthorized"
+    error 404, "Resource not found"
+  end
+
+
   # GET /users
   # GET /users.json
+  api :GET, "/users", "List users"
   def index
     @users = User.all
 
@@ -15,6 +26,7 @@ class UsersController < ApplicationController
 
   # GET /users/1
   # GET /users/1.json
+  api :GET, "/users/:id", "Show an user"
   def show
     @user = User.find(params[:id])
 
@@ -43,11 +55,12 @@ class UsersController < ApplicationController
 
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
+  api :PUT, "/users/:id", "Update an user"
   def update
     @user = User.find(params[:id])
 
     if @user.update_attributes(params[:user])
-      head :no_content
+      render json: @user, status: :created, location: @user
     else
       render json: { errors: @user.errors }, status: :unprocessable_entity
     end
@@ -55,6 +68,7 @@ class UsersController < ApplicationController
 
   # DELETE /users/1
   # DELETE /users/1.json
+  api :DELETE, "/users/:id", "Delete an user"
   def destroy
     @user = User.find(params[:id])
     @user.destroy
