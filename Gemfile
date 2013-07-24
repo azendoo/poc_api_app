@@ -19,6 +19,7 @@ gem 'mongoid', '2.4.6'
 
 # api
 # gem 'api-versions'
+gem 'apipie-rails'
 
 group :development do
   gem 'jazz_hands'
