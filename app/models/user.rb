@@ -48,4 +48,10 @@ class User
   has_many    :tasks, dependent: :destroy
 
   attr_accessible :email, :password, :remember_me
+
+
+  def self.find_by_email(email)
+    User.where(email: {'$regex' => '^'+Regexp.quote(email)+'$', '$options' => 'i'}).first
+  end
+
 end

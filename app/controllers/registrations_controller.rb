@@ -16,14 +16,26 @@ class RegistrationsController < Devise::RegistrationsController
   end
   error :code => 422
   def create
-    user = User.new(params[:user])
-    if user.save
-      render status: 201, json: { email: user.email, auth_token: user.authentication_token }
-      return
+
+    if params[:email].present? && params[:password].present?
+
+      params["user"] ||= {}
+      params["user"].merge!(email: params[:email], password: params[:password])
+
+      user = User.new(params[:user])
+
+      if user.save
+        render status: 201, json: { email: user.email, auth_token: user.authentication_token }
+        return
+      else
+        clean_up_passwords user
+        render status: :unprocessable_entity, json: { errors: user.errors }
+      end
+
     else
-      clean_up_passwords user
-      render status: :unprocessable_entity, json: { errors: user.errors }
+      render json: { errors: "Missing email or password attribute" }, status: :bad_request
     end
+
   end
 
 end

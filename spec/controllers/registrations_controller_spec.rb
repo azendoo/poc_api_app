@@ -10,14 +10,14 @@ describe RegistrationsController do
   describe "#create" do
 
     it "should succeed with valid credentials" do
-      post :create, :user => { email: "foo@bar.ok", password: "please" }
+      post :create, { email: "foo@bar.ok", password: "please" }
       response.should be_success
       JSON.parse(response.body).keys.include?("auth_token")
     end
 
     it "should fail with invalid credentials" do
-      post :create, :user => { email: "", password: ""}
-      response.status.should eq(422)
+      post :create, { email: "", password: ""}
+      response.status.should eq(400)
     end
 
   end

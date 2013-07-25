@@ -21,11 +21,17 @@ class ApplicationController < ActionController::API
   end
 
   def ensure_tokens_presence
-    unless params[:auth_token].blank? or request.headers['Authorization'].blank?
+
+    if token_params
       render json: { errors: "A token is required in order to process that request." }, status: 401
     else
       return
     end
+
+  end
+
+  def token_params
+    params[:auth_token].blank? && request.headers['Authorization'].blank?
   end
 
   # XXX WIP
