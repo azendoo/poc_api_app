@@ -51,7 +51,7 @@ class TasksController < ApplicationController
   description "This endpoint let you crate a new task."
   example Api::Docs::TasksDoc.new_task
   def create
-    @task = Task.new(params[:task])
+    @task = Task.new(params)
     @task.user_id = current_user.id
 
     if @task.save
