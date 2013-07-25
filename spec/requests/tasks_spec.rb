@@ -70,7 +70,7 @@ describe "Tasks" do
 
       it "should succeed" do
 
-        post '/tasks', { task: { label: "Awesome task" } }, valid_authorization_header
+        post '/tasks', { label: "Awesome task" }, valid_authorization_header
 
         response.should be_success
         json_response.should be_json_eql({ :label => "Awesome task", :user_id => user.id }.to_json).excluding("url")
