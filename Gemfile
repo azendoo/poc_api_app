@@ -7,6 +7,9 @@ gem 'bson_ext', '1.5.2'
 gem 'oj'
 gem 'active_model_serializers'
 
+# ajax
+gem 'rack-cors', :require => 'rack/cors'
+
 # authentication
 gem 'devise', :git => 'git@github.com:plataformatec/devise.git', :branch => 'master'
 gem 'warden', :git => 'git@github.com:hassox/warden.git', :branch => 'master'

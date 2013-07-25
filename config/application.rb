@@ -66,6 +66,14 @@ module PocApiApp
     # config.active_record.whitelist_attributes = true
     config.middleware.use Rack::MethodOverride
     config.middleware.use ActionDispatch::Flash
+
+    config.middleware.use Rack::Cors do
+      allow do
+        origins '*'
+        resource '*', :headers => :any, :methods => [:get, :post, :put, :delete, :options]
+      end
+    end
+
     config.middleware.delete ActionDispatch::DebugExceptions
 
     config.to_prepare do
