@@ -9,6 +9,4 @@ describe UserSerializer do
 
   it { should embed(:ids) }
 
-  it { should include_root }
-
 end

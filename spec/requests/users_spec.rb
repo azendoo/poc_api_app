@@ -25,7 +25,6 @@ describe "Users" do
 
         get '/users', nil, valid_authorization_header
 
-        json_response.should have_json_path("users")
         response.should be_success
       end
     end
@@ -49,8 +48,7 @@ describe "Users" do
         get "/users/#{user.id}", nil, valid_authorization_header
 
         response.should be_success
-        json_response.should have_json_path('user')
-        json_response.should be_json_eql({ :id => user.id, :email => user.email, :task_ids => user.tasks }.to_json).excluding("url").at_path("user")
+        json_response.should be_json_eql({ :id => user.id, :email => user.email, :task_ids => user.tasks }.to_json).excluding("url")
       end
     end
 
@@ -74,8 +72,7 @@ describe "Users" do
         put "/users/#{user.id}",  { user: { email: "stevenseagal@kungfoo.com" }}, valid_authorization_header
 
         response.should be_success
-        json_response.should have_json_path('user')
-        json_response.should be_json_eql({ :id => user.id, :email => "stevenseagal@kungfoo.com", :task_ids => user.tasks }.to_json).excluding("url").at_path("user")
+        json_response.should be_json_eql({ :id => user.id, :email => "stevenseagal@kungfoo.com", :task_ids => user.tasks }.to_json).excluding("url")
       end
     end
 

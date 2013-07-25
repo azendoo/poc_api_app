@@ -26,7 +26,6 @@ describe "Tasks" do
 
         get '/tasks', nil, valid_authorization_header
 
-        json_response.should have_json_path("tasks")
         response.should be_success
       end
     end
@@ -50,8 +49,7 @@ describe "Tasks" do
         get "/tasks/#{task.id}", nil, valid_authorization_header
 
         response.should be_success
-        json_response.should have_json_path('task')
-        json_response.should be_json_eql({ :id => task.id, :label => task.label, :user_id => user.id }.to_json).excluding("url").at_path("task")
+        json_response.should be_json_eql({ :id => task.id, :label => task.label, :user_id => user.id }.to_json).excluding("url")
       end
     end
 
@@ -75,8 +73,7 @@ describe "Tasks" do
         post '/tasks', { task: { label: "Awesome task" } }, valid_authorization_header
 
         response.should be_success
-        json_response.should have_json_path('task')
-        json_response.should be_json_eql({ :label => "Awesome task", :user_id => user.id }.to_json).excluding("url").at_path("task")
+        json_response.should be_json_eql({ :label => "Awesome task", :user_id => user.id }.to_json).excluding("url")
 
       end
     end
@@ -101,8 +98,7 @@ describe "Tasks" do
         put "/tasks/#{task.id}",  { task: { label: "Boring task" }}, valid_authorization_header
 
         response.should be_success
-        json_response.should have_json_path('task')
-        json_response.should be_json_eql({ :id => task.id, :label => "Boring task", :user_id => user.id }.to_json).excluding("url").at_path("task")
+        json_response.should be_json_eql({ :id => task.id, :label => "Boring task", :user_id => user.id }.to_json).excluding("url")
       end
     end
 
