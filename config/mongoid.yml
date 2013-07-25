@@ -21,10 +21,7 @@ test:
 # set these environment variables on your prod server
 production:
   <<: *defaults
-  host: <%= ENV['MONGOID_HOST'] %>
-  port: <%= ENV['MONGOID_PORT'] %>
-  username: <%= ENV['MONGOID_USERNAME'] %>
-  password: <%= ENV['MONGOID_PASSWORD'] %>
-  database: <%= ENV['MONGOID_DATABASE'] %>
-  autocreate_indexes: false
+  logger: true
+  database: poc_api_app
   max_retries_on_connection_failure: 2
+  autocreate_indexes: true
