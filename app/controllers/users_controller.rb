@@ -1,5 +1,5 @@
 class UsersController < ApplicationController
-  before_filter :authenticate_user!, :except => [:create, :new]
+  before_filter :authenticate_user!, :except => [:create, :new, :me]
 
   respond_to :json
 
@@ -76,6 +76,8 @@ class UsersController < ApplicationController
     head :no_content
   end
 
+  # GET /users/me
+  # GET /users/me.json
   def me
     if current_user
       render json: @current_user
