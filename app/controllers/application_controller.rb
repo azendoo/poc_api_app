@@ -8,6 +8,11 @@ class ApplicationController < ActionController::API
     render json: { errors: "Not found." }, :status => 404
   end
 
+  # needed because store option is set to true in default devise's helper
+  def current_user
+    @current_user ||= warden.authenticate(:scope => :user, :store => false)
+  end
+
   private
 
   def ensure_json_request
@@ -37,11 +42,6 @@ class ApplicationController < ActionController::API
 
   def timedout?
     !current_user.timeout_in.nil? && current_user.last_activity_at && current_user.last_activity_at <= current_user.timeout_in.ago
-  end
-
-  # needed because store option is set to true in default devise's helper
-  def current_user
-    @current_user ||= warden.authenticate(:scope => :user, :store => false)
   end
 
 end

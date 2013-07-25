@@ -76,4 +76,12 @@ class UsersController < ApplicationController
     head :no_content
   end
 
+  def me
+    if current_user
+      render json: @current_user
+    else
+      render status: 401, nothing: true
+    end
+  end
+
 end
