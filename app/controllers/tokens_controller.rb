@@ -1,7 +1,7 @@
 class TokensController < Devise::SessionsController
   skip_before_filter :authenticate_user!
   skip_before_filter :verify_authenticity_token
-  skip_before_filter :ensure_tokens_presence
+  skip_before_filter :ensure_tokens_presence, :only => [:create]
   skip_after_filter :update_last_activity, :only => [:create]
 
   respond_to :json
