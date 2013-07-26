@@ -3,6 +3,10 @@ source 'https://rubygems.org'
 gem 'rails', '3.2.6'
 gem 'rails-api'
 
+# Required because Rails is not capable of calling your exception
+# handlers when an error occurs during the parsing of request parameters
+gem 'request_exception_handler'
+
 gem 'bson_ext', '1.5.2'
 gem 'oj'
 gem 'active_model_serializers'

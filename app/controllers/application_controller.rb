@@ -8,6 +8,10 @@ class ApplicationController < ActionController::API
     render json: { errors: "Not found." }, :status => 404
   end
 
+  rescue_from Oj::ParseError do |exception|
+    render json: { errors: "Invalid JSON request." }, status: :bad_request
+  end
+
   # needed because store option is set to true in default devise's helper
   def current_user
     @current_user ||= warden.authenticate(:scope => :user, :store => false)
@@ -18,16 +22,15 @@ class ApplicationController < ActionController::API
   def ensure_json_request
     response.headers['Cache-Control'] = 'no-cache'
     render json: '', status: 406 unless [Mime::ALL,Mime::JSON].include? request.format
+    return if Oj.load(request.body)
   end
 
   def ensure_tokens_presence
-
     if token_params
       render json: { errors: "A token is required in order to process that request." }, status: 401
     else
       return
     end
-
   end
 
   def token_params
