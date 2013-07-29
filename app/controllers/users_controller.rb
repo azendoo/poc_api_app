@@ -1,5 +1,6 @@
 class UsersController < ApplicationController
   before_filter :authenticate_user!, :except => [:create, :new, :me]
+  skip_after_filter :update_last_activity, :only => [:me]
 
   respond_to :json
 
@@ -79,10 +80,11 @@ class UsersController < ApplicationController
   # GET /users/me
   # GET /users/me.json
   def me
+    binding.pry
     if current_user
       render json: @current_user
     else
-      render status: 401, nothing: true
+      render json: { errors: "Not Authorized." }, status: 401
     end
   end
 
