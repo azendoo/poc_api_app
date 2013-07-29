@@ -80,7 +80,6 @@ class UsersController < ApplicationController
   # GET /users/me
   # GET /users/me.json
   def me
-    binding.pry
     if current_user
       render json: @current_user
     else
