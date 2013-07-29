@@ -86,7 +86,7 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
     @task.destroy
 
-    render json: { task: {} }, status: :ok, location: @task
+    render json: '{ {} }', status: :ok, location: @task
   end
 
 end

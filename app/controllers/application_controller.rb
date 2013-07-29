@@ -42,7 +42,7 @@ class ApplicationController < ActionController::API
     return if current_user.nil? or not timedout?
     current_user.reset_authentication_token!
     return if params[:controller].eql?("tokens")
-    render json: { errors: 'Timed out. Please sign-in to obtain a new token.' }
+    render json: { errors: 'Timed out. Please sign-in to obtain a new token.' }, status: 401
   end
 
   def update_last_activity
