@@ -4,6 +4,8 @@ class ApplicationController < ActionController::API
   before_filter :authenticate_user!, :check_token_timeout
   after_filter :update_last_activity
 
+  respond_to :json
+
   rescue_from Mongoid::Errors::DocumentNotFound, BSON::InvalidObjectId do |exception|
     render json: { errors: "Not found." }, :status => 404
   end
@@ -22,7 +24,12 @@ class ApplicationController < ActionController::API
   def ensure_json_request
     response.headers['Cache-Control'] = 'no-cache'
     render json: '', status: 406 unless [Mime::ALL,Mime::JSON].include? request.format
-    return if Oj.load(request.body)
+
+    if request.format == Mime::JSON
+      return if Oj.load(request.body)
+    else
+      return
+    end
   end
 
   def ensure_tokens_presence
@@ -40,7 +47,6 @@ class ApplicationController < ActionController::API
   # XXX WIP
   def check_token_timeout
     return if current_user.nil? or not timedout?
-    current_user.reset_authentication_token!
     return if params[:controller].eql?("tokens")
     render json: { errors: 'Timed out. Please sign-in to obtain a new token.' }, status: 401
   end
