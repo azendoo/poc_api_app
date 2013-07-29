@@ -12,7 +12,7 @@ class Api::Docs::TasksDoc <  ActionController::Base
     # curl --request POST -u <token>: http://api.azendoo.com/tasks -d "label='Just a task'"
 
     {
-      label": "Just a task"
+      "label": "Just a task"
     }
     EOS
   end
