@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::API
   include ActionController::MimeResponds
+
   before_filter :ensure_json_request, :ensure_tokens_presence
   before_filter :authenticate_user!, :check_token_timeout
   after_filter :update_last_activity
@@ -26,7 +27,7 @@ class ApplicationController < ActionController::API
     render json: '', status: 406 unless [Mime::ALL,Mime::JSON].include? request.format
 
     if request.format == Mime::JSON
-      return if Oj.load(request.body)
+      return if Oj.load(request.body.read)
     else
       return
     end
@@ -52,10 +53,11 @@ class ApplicationController < ActionController::API
   end
 
   def update_last_activity
-    current_user.update_attribute(:last_activity_at, Time.now)
+    current_user.update_attribute(:last_activity_at, Time.now) unless current_user.nil?
   end
 
   def timedout?
+    return if current_user.nil?
     !current_user.timeout_in.nil? && current_user.last_activity_at && current_user.last_activity_at <= current_user.timeout_in.ago
   end
 
