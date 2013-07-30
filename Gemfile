@@ -36,6 +36,7 @@ end
 group :test do
   gem 'mongoid-rspec', '1.4.5'
   gem 'factory_girl_rails'
+  gem 'faker', git: 'git://github.com/stympy/faker.git'
   gem 'spork'
   gem 'guard-rspec'
   gem 'guard-spork'
