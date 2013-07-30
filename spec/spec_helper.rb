@@ -18,7 +18,13 @@ Spork.prefork do
 
   RSpec.configure do |config|
 
+    # Why do we need to purge mongo collections with two passes ?
+    # ... because of PRY which frequently goes crazy and skips all the testing process !
     config.before(:each) do
+      Mongoid.master.collections.reject { |c| c.name == 'system.indexes'}.each(&:drop)
+    end
+
+    config.after(:each) do
       Mongoid.master.collections.reject { |c| c.name == 'system.indexes'}.each(&:drop)
     end
 
