@@ -1,5 +1,7 @@
 require 'rubygems'
 require 'spork'
+require 'support/api/api_helpers'
+
 #uncomment the following line to use spork with the debugger
 #require 'spork/ext/ruby-debug'
 
@@ -17,6 +19,9 @@ Spork.prefork do
   Dir[Rails.root.join("spec/support/**/*.rb")].each {|f| require f}
 
   RSpec.configure do |config|
+
+    # various helpers for API
+    config.include(APIHelpers)
 
     # Why do we need to purge mongo collections with two passes ?
     # ... because of PRY which frequently goes crazy and skips all the testing process !
