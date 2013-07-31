@@ -16,6 +16,7 @@ class RegistrationsController < Devise::RegistrationsController
   end
   error :code => 422
   def create
+
     if params[:email].present? && params[:password].present?
 
       params["user"] ||= {}

@@ -60,7 +60,7 @@ class UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
 
-    if @user.update_attributes(params[:user])
+    if @user.update_attributes(params)
       render json: @user, status: :created, location: @user
     else
       render json: { errors: @user.errors }, status: :unprocessable_entity

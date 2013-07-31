@@ -51,6 +51,7 @@ class TasksController < ApplicationController
   description "This endpoint let you crate a new task."
   example Api::Docs::TasksDoc.new_task
   def create
+
     @task = Task.new(params)
     @task.user_id = current_user.id
 
@@ -70,7 +71,7 @@ class TasksController < ApplicationController
   def update
     @task = Task.find(params[:id])
 
-    if @task.update_attributes(params[:task])
+    if @task.update_attributes(params)
       render json: @task, status: :created, location: @task
     else
       render json: { errors: @task.errors }, status: :unprocessable_entity
