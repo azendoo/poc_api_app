@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class User
   include Mongoid::Document
   include Mongoid::Timestamps::Created
@@ -6,30 +7,30 @@ class User
   # :confirmable,
   # :lockable and :omniauthable
   devise :database_authenticatable, :registerable,
-    :recoverable, :rememberable, :trackable, :validatable,
-    :token_authenticatable, :timeoutable
+         :recoverable, :rememberable, :trackable, :validatable,
+         :token_authenticatable, :timeoutable
 
   before_save :ensure_authentication_token
 
   ## Database authenticatable
-  field :email,              :type => String, null: false, :default => ""
-  field :encrypted_password, :type => String, null: false, :default => ""
+  field :email,              type: String, null: false, default: ''
+  field :encrypted_password, type: String, null: false, default: ''
 
   ## Recoverable
-  field :reset_password_token,   :type => String
-  field :reset_password_sent_at, :type => Time
+  field :reset_password_token,   type: String
+  field :reset_password_sent_at, type: Time
 
   ## Rememberable
-  field :remember_created_at, :type => Time
+  field :remember_created_at, type: Time
 
   ## Trackable
-  field :sign_in_count,      :type => Integer, :default => 0
-  field :current_sign_in_at, :type => Time
-  field :last_sign_in_at,    :type => Time
-  field :current_sign_in_ip, :type => String
-  field :last_sign_in_ip,    :type => String
+  field :sign_in_count,      type: Integer, default: 0
+  field :current_sign_in_at, type: Time
+  field :last_sign_in_at,    type: Time
+  field :current_sign_in_ip, type: String
+  field :last_sign_in_ip,    type: String
 
-  field :last_activity_at,   :type => Time
+  field :last_activity_at,   type: Time
 
   ## Confirmable
   # field :confirmation_token,   :type => String
@@ -43,15 +44,14 @@ class User
   # field :locked_at,       :type => Time
 
   ## Token authenticatable
-  field :authentication_token, :type => String
+  field :authentication_token, type: String
 
   has_many    :tasks, dependent: :destroy
 
   attr_accessible :email, :password, :remember_me
 
-
   def self.find_by_email(email)
-    User.where(email: {'$regex' => '^'+Regexp.quote(email)+'$', '$options' => 'i'}).first
+    User.where(email: { '$regex' => '^' + Regexp.quote(email) + '$', '$options' => 'i' }).first
   end
 
 end

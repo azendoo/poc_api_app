@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class ApplicationController < ActionController::API
   include ActionController::MimeResponds
 
@@ -8,23 +9,23 @@ class ApplicationController < ActionController::API
   respond_to :json
 
   rescue_from Mongoid::Errors::DocumentNotFound, BSON::InvalidObjectId do |exception|
-    render json: { errors: "Not found." }, :status => 404
+    render json: { errors: 'Not found.' }, status: 404
   end
 
   rescue_from Oj::ParseError do |exception|
-    render json: { errors: "Invalid JSON request." }, status: :bad_request
+    render json: { errors: 'Invalid JSON request.' }, status: :bad_request
   end
 
   # needed because store option is set to true in default devise's helper
   def current_user
-    @current_user ||= warden.authenticate(:scope => :user, :store => false)
+    @current_user ||= warden.authenticate(scope: :user, store: false)
   end
 
   private
 
   def ensure_json_request
     response.headers['Cache-Control'] = 'no-cache'
-    render json: '', status: 406 unless [Mime::ALL,Mime::JSON].include? request.format
+    render json: '', status: 406 unless [Mime::ALL, Mime::JSON].include? request.format
 
     if request.format == Mime::JSON
       return if Oj.load(request.body.read)
@@ -35,7 +36,7 @@ class ApplicationController < ActionController::API
 
   def ensure_tokens_presence
     if token_params
-      render json: { errors: "A token is required in order to process that request." }, status: 401
+      render json: { errors: 'A token is required in order to process that request.' }, status: 401
     else
       return
     end
@@ -47,8 +48,8 @@ class ApplicationController < ActionController::API
 
   # XXX WIP
   def check_token_timeout
-    return if current_user.nil? or not timedout?
-    return if params[:controller].eql?("tokens")
+    return if current_user.nil? || !timedout?
+    return if params[:controller].eql?('tokens')
     render json: { errors: 'Timed out. Please sign-in to obtain a new token.' }, status: 401
   end
 

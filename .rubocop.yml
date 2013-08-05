@@ -1,0 +1,11 @@
+AllCops:
+  Includes:
+    - Rakefile
+    - config.ru
+  Excludes:
+    - db/**
+    - app/controllers/api/docs/**
+    - config/**
+    - script/**
+LineLength:
+  Enabled: false

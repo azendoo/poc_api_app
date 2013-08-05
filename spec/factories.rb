@@ -1,14 +1,15 @@
-require "factory_girl"
+# encoding: UTF-8
+require 'factory_girl'
 
 FactoryGirl.define do
 
   factory :user do
     email { Faker::Internet.email }
-    password "please"
+    password 'please'
   end
 
   factory :task do
-    sequence(:label) { |n| "Task number #{n}" }
+    sequence(:label) { |n| 'Task number #{n}' }
     association :user, factory: :user
   end
 end

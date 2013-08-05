@@ -1,3 +1,4 @@
+# encoding: UTF-8
 class ErrorsController < ApplicationController
   def not_found
     render json: { errors: :not_found }, status: :not_found

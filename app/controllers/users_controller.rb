@@ -1,6 +1,7 @@
+# encoding: UTF-8
 class UsersController < ApplicationController
-  before_filter :authenticate_user!, :except => [:create, :new, :me]
-  skip_after_filter :update_last_activity, :only => [:me]
+  before_filter :authenticate_user!, except: [:create, :new, :me]
+  skip_after_filter :update_last_activity, only: [:me]
 
   respond_to :json
 
@@ -8,26 +9,25 @@ class UsersController < ApplicationController
     short 'Users related endpoints'
     formats ['json']
 
-    error 422, "Unprocessable entity"
-    error 401, "Unauthorized"
-    error 404, "Resource not found"
+    error 422, 'Unprocessable entity'
+    error 401, 'Unauthorized'
+    error 404, 'Resource not found'
   end
-
 
   # GET /users
   # GET /users.json
-  api :GET, "/users", "List users"
+  api :GET, '/users', 'List users'
   def index
     @users = User.all
 
     # ugly hack, see :
     # https://github.com/rails-api/active_model_serializers/issues/347
-    render json: @users.to_a, :each_serializer => UserSerializer
+    render json: @users.to_a, each_serializer: UserSerializer
   end
 
   # GET /users/1
   # GET /users/1.json
-  api :GET, "/users/:id", "Show an user"
+  api :GET, '/users/:id', 'Show an user'
   def show
     @user = User.find(params[:id])
 
@@ -56,7 +56,7 @@ class UsersController < ApplicationController
 
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
-  api :PUT, "/users/:id", "Update an user"
+  api :PUT, '/users/:id', 'Update an user'
   def update
     @user = User.find(params[:id])
 
@@ -69,7 +69,7 @@ class UsersController < ApplicationController
 
   # DELETE /users/1
   # DELETE /users/1.json
-  api :DELETE, "/users/:id", "Delete an user"
+  api :DELETE, '/users/:id', 'Delete an user'
   def destroy
     @user = User.find(params[:id])
     @user.destroy
@@ -83,7 +83,7 @@ class UsersController < ApplicationController
     if current_user
       render json: @current_user
     else
-      render json: { errors: "Not Authorized." }, status: 401
+      render json: { errors: 'Not Authorized.' }, status: 401
     end
   end
 

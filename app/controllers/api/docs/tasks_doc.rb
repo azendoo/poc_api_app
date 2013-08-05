@@ -2,7 +2,7 @@ class Api::Docs::TasksDoc <  ActionController::Base
 
   def_param_group :task do
     param :task, Hash do
-      param :label, String, :description => "Label of the task", :required => true
+      param :label, String, description: "Label of the task", required: true
     end
   end
 
