@@ -1,7 +1,7 @@
 # encoding: UTF-8
 require 'spec_helper'
 
-describe TokensController do
+describe Api::V1::TokensController do
   describe 'routing' do
 
     it 'routes to #create' do

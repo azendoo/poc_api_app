@@ -33,7 +33,12 @@ describe 'Users' do
       it 'should succeed' do
         get user_path(user.id), nil, valid_authorization_header
         response.should be_success
-        json_response.should be_json_eql({ id: user.id, email: user.email, task_ids: user.tasks }.to_json).excluding('url')
+        json_response.should be_json_eql(
+          {
+            id: user.id,
+            email: user.email,
+            task_ids: user.tasks
+          }.to_json).excluding('url')
       end
     end
 
@@ -53,7 +58,12 @@ describe 'Users' do
       it 'should succeed' do
         put user_path(user.id), new_user, valid_authorization_header
         response.should be_success
-        json_response.should be_json_eql({ id: user.id, email: 'stevenseagal@kungfoo.com', task_ids: user.tasks }.to_json).excluding('url')
+        json_response.should be_json_eql(
+          {
+            id: user.id,
+            email: 'stevenseagal@kungfoo.com',
+            task_ids: user.tasks
+          }.to_json).excluding('url')
       end
     end
 
