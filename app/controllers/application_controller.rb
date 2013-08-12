@@ -26,5 +26,4 @@ class ApplicationController < ActionController::API
     @current_user ||= warden.authenticate(scope: :user, store: false)
   end
 
-  binding.pry
 end
