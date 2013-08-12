@@ -7,10 +7,10 @@ class Api::V1::HomeController < ApplicationController
   # XXX : temporary
   def index
     links = {
-      login_url:  url_for(controller: 'tokens', action: 'create'),
-      logout_url: url_for(controller: 'tokens', action: 'destroy'),
-      users_url:  users_url   + '/{id}',
-      tasks_url:  tasks_url   + '/{id}'
+      login_urli: api_login_url,
+      logout_url: api_logout_url,
+      users_url:  api_users_url   + '/{id}',
+      tasks_url:  api_tasks_url   + '/{id}'
     }
     render json: links.to_json
   end
