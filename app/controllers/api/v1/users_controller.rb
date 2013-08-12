@@ -48,7 +48,7 @@ class Api::V1::UsersController < ApplicationController
     @user = User.new(params[:user])
 
     if @user.save
-      render json: @user, status: :created, location: @user
+      render json: @user, status: :created, location: api_user_url(@user)
     else
       render json: {
         errors: @user.errors
@@ -63,7 +63,7 @@ class Api::V1::UsersController < ApplicationController
     @user = User.find(params[:id])
 
     if @user.update_attributes(params)
-      render json: @user, status: :created, location: @user
+      render json: @user, status: :created, location: api_user_url(@user)
     else
       render json: {
         errors: @user.errors

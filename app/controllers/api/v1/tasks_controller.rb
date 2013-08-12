@@ -56,7 +56,7 @@ class Api::V1::TasksController < ApplicationController
     @task.user_id = current_user.id
 
     if @task.save
-      render json: @task, status: :created, location: @task
+      render json: @task, status: :created, location: api_task_url(@task)
     else
       render json: { errors: @task.errors }, status: :unprocessable_entity
     end
@@ -72,7 +72,7 @@ class Api::V1::TasksController < ApplicationController
     @task = Task.find(params[:id])
 
     if @task.update_attributes(params)
-      render json: @task, status: :created, location: @task
+      render json: @task, status: :created, location: api_task_url(@task)
     else
       render json: { errors: @task.errors }, status: :unprocessable_entity
     end
@@ -87,7 +87,7 @@ class Api::V1::TasksController < ApplicationController
     @task = Task.find(params[:id])
     @task.destroy
 
-    render json: '{ {} }', status: :ok, location: @task
+    render json: '{ {} }', status: :ok
   end
 
 end
