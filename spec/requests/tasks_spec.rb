@@ -107,7 +107,7 @@ describe 'Tasks' do
 
     context 'with valid credentials' do
       it 'should succeed' do
-        delete api_tasks_path(task.id), nil, valid_authorization_header
+        delete api_task_path(task.id), nil, valid_authorization_header
         response.should be_success
         Task.count.should eq(0)
       end
