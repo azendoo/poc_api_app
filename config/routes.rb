@@ -8,7 +8,9 @@ PocApiApp::Application.routes.draw do
   api vendor_string: 'azendoo', default_version: 1, path: nil do
     version 1 do
       cache as: 'v1' do
+
         root to: "home#index"
+
         resources :users, controller: 'users', except: [:edit, :new, :create] do
           get 'me', :on => :collection, defaults: { format: 'json' }
         end
@@ -22,6 +24,11 @@ PocApiApp::Application.routes.draw do
         resources :tasks, except: [:edit, :new]
       end
     end
+
+    version 2 do
+      inherit from: 'v1'
+    end
+
   end
 
 end

@@ -7,7 +7,7 @@ class Api::V1::HomeController < ApplicationController
   # XXX : temporary
   def index
     links = {
-      login_urli: api_login_url,
+      login_url: api_login_url,
       logout_url: api_logout_url,
       users_url:  api_users_url   + '/{id}',
       tasks_url:  api_tasks_url   + '/{id}'

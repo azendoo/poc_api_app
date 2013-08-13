@@ -16,6 +16,15 @@ GIT
       rspec (~> 2.0)
 
 GIT
+  remote: git://github.com/simonbnrd/active_model_version_serializers.git
+  revision: 07374f8450a6394a5020ad0c7bbfc969b626cde1
+  branch: amvs_fixes_sbnrd
+  specs:
+    active_model_version_serializers (0.0.5)
+      active_model_serializers (>= 0.8.1)
+      activesupport (>= 3.0.0)
+
+GIT
   remote: git://github.com/stympy/faker.git
   revision: 57c543804c8a631ec40948aa2c3367c5b6aabded
   specs:
@@ -32,7 +41,7 @@ GIT
 
 GIT
   remote: git@github.com:plataformatec/devise.git
-  revision: 7e855eddef6d37329f9075408b3065205a17fab2
+  revision: efe34219a9bdfa5efc2133f6b0aa430713ff3ff8
   branch: master
   specs:
     devise (3.0.1)
@@ -101,8 +110,6 @@ GEM
     debugger-ruby_core_source (1.2.3)
     diff-lcs (1.2.4)
     diffy (3.0.1)
-    doorkeeper (0.6.7)
-      railties (~> 3.1)
     erubis (2.7.0)
     eventmachine (1.0.3)
     factory_girl (4.2.0)
@@ -134,7 +141,7 @@ GEM
       spork (>= 0.8.4)
     hike (1.2.3)
     hirb (0.7.1)
-    i18n (0.6.4)
+    i18n (0.6.5)
     jazz_hands (0.5.1)
       awesome_print (~> 1.1.0)
       coderay (~> 1.0.9)
@@ -280,11 +287,11 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers
   active_model_serializers-matchers!
+  active_model_version_serializers!
   api-versions!
   apipie-rails
   bson_ext (= 1.5.2)
   devise!
-  doorkeeper
   factory_girl_rails
   faker!
   guard-bundler
