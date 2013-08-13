@@ -6,8 +6,8 @@ This project is just a sandbox where I'm trying to play with the following gems 
 * Mongoid
 * Oj
 * ActiveModel::Serializer
+* active_model_version_serializer
 * Devise, with master branch of Warden.
-* Doorkeeper
 * RSpec
 * api-versions
 * redis-throttle
@@ -22,12 +22,11 @@ $ rake middleware
 
 use ActionDispatch::Static
 use Rack::Lock
-use #<ActiveSupport::Cache::Strategy::LocalCache::Middleware:0x007ff425d16b10>
+use #<ActiveSupport::Cache::Strategy::LocalCache::Middleware:0x007fc317082168>
 use Rack::Runtime
 use ActionDispatch::RequestId
 use Rails::Rack::Logger
 use ActionDispatch::ShowExceptions
-use ActionDispatch::DebugExceptions
 use ActionDispatch::RemoteIp
 use ActionDispatch::Reloader
 use ActionDispatch::Callbacks
@@ -35,7 +34,11 @@ use ActionDispatch::ParamsParser
 use ActionDispatch::Head
 use Rack::ConditionalGet
 use Rack::ETag
+use ApiVersions::Middleware
+use Rack::Cors
 use Warden::Manager
 use Rack::MethodOverride
+use ActionDispatch::Flash
 use Rack::Mongoid::Middleware::IdentityMap
+use Apipie::StaticDispatcher
 ```
