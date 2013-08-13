@@ -16,7 +16,8 @@ This project is just a sandbox where I'm trying to play with the following gems 
 At the moment, everything here is experimental.
 Indeed, this project is still a work in progress.
 
-Current middleware stack :
+### Current middleware stack
+
 ```no-highlight
 $ rake middleware
 
@@ -42,3 +43,17 @@ use ActionDispatch::Flash
 use Rack::Mongoid::Middleware::IdentityMap
 use Apipie::StaticDispatcher
 ```
+
+### API Versioning :
+
+At the moment API versioning is done using [api-versions](https://github.com/erichmenge/api-versions) gem. Serializers are also versioned, but this time with [active_model_version_serializers](https://github.com/hookercookerman/active_model_version_serializers) gem, which is kinda a f-:bomb: experimental.
+
+Everything happens in the `Accept` header. Following type are accepted :
+```
+application/json
+application/vnd.azendoo+json
+application/vnd.azendoo+json; version=1
+application/vnd.azendoo+json; version=2
+```
+
+Default version is V1, so if you ask for one the first two types of the list above, you will get V1.
