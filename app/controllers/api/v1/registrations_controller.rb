@@ -1,7 +1,8 @@
 # encoding: UTF-8
-class RegistrationsController < Devise::RegistrationsController
+class Api::V1::RegistrationsController < Devise::RegistrationsController
   include Devise::Controllers::Helpers
-  skip_before_filter :authenticate_user!, :check_token_timeout, :ensure_tokens_presence
+  skip_before_filter :authenticate_user!, :check_token_timeout
+  skip_before_filter :ensure_tokens_presence
   skip_after_filter :update_last_activity
 
   resource_description do
@@ -26,15 +27,22 @@ class RegistrationsController < Devise::RegistrationsController
       user = User.new(params[:user])
 
       if user.save
-        render status: 201, json: { email: user.email, auth_token: user.authentication_token }
+        render json: {
+          email: user.email,
+          auth_token: user.authentication_token
+        }, status: 201
         return
       else
         clean_up_passwords user
-        render status: :unprocessable_entity, json: { errors: user.errors }
+        render  json: {
+          errors: user.errors
+        }, status: :unprocessable_entity
       end
 
     else
-      render json: { errors: 'Missing email or password attribute' }, status: :bad_request
+      render json: {
+        errors: 'Missing email or password attribute'
+      }, status: :bad_request
     end
 
   end

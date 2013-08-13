@@ -1,5 +1,5 @@
 # encoding: UTF-8
-class UsersController < ApplicationController
+class Api::V1::UsersController < ApplicationController
   before_filter :authenticate_user!, except: [:create, :new, :me]
   skip_after_filter :update_last_activity, only: [:me]
 
@@ -48,9 +48,11 @@ class UsersController < ApplicationController
     @user = User.new(params[:user])
 
     if @user.save
-      render json: @user, status: :created, location: @user
+      render json: @user, status: :created, location: api_user_url(@user)
     else
-      render json: { errors: @user.errors }, status: :unprocessable_entity
+      render json: {
+        errors: @user.errors
+      }, status: :unprocessable_entity
     end
   end
 
@@ -61,9 +63,11 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
 
     if @user.update_attributes(params)
-      render json: @user, status: :created, location: @user
+      render json: @user, status: :created, location: api_user_url(@user)
     else
-      render json: { errors: @user.errors }, status: :unprocessable_entity
+      render json: {
+        errors: @user.errors
+      }, status: :unprocessable_entity
     end
   end
 

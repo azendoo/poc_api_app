@@ -1,5 +1,5 @@
 # encoding: UTF-8
-class TokensController < Devise::SessionsController
+class Api::V1::TokensController < Devise::SessionsController
   skip_before_filter :authenticate_user!
   skip_before_filter :verify_authenticity_token
   skip_before_filter :ensure_tokens_presence, only: [:create]
@@ -28,7 +28,9 @@ class TokensController < Devise::SessionsController
       render json: { auth_token: current_user.authentication_token }
 
     else
-      render json: { errors: 'Missing email or password attribute' }, status: :unauthorized
+      render json: {
+        errors: 'Missing email or password attribute'
+      }, status: :unauthorized
     end
 
   end

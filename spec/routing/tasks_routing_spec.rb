@@ -1,7 +1,7 @@
 # encoding: UTF-8
 require 'spec_helper'
 
-describe TasksController do
+describe Api::V1::TasksController do
   describe 'routing' do
 
     it 'routes to #index' do

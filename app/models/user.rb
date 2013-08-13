@@ -32,17 +32,6 @@ class User
 
   field :last_activity_at,   type: Time
 
-  ## Confirmable
-  # field :confirmation_token,   :type => String
-  # field :confirmed_at,         :type => Time
-  # field :confirmation_sent_at, :type => Time
-  # field :unconfirmed_email,    :type => String # Only if using reconfirmable
-
-  ## Lockable
-  # field :failed_attempts, :type => Integer, :default => 0 # Only if lock strategy is :failed_attempts
-  # field :unlock_token,    :type => String # Only if unlock strategy is :email or :both
-  # field :locked_at,       :type => Time
-
   ## Token authenticatable
   field :authentication_token, type: String
 
@@ -51,7 +40,9 @@ class User
   attr_accessible :email, :password, :remember_me
 
   def self.find_by_email(email)
-    User.where(email: { '$regex' => '^' + Regexp.quote(email) + '$', '$options' => 'i' }).first
+    User.where(email: {
+      '$regex' => '^' + Regexp.quote(email) + '$', '$options' => 'i'
+    }).first
   end
 
 end
