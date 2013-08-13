@@ -1,8 +1,14 @@
+# encoding: UTF-8
 module ApiHelpers
+
+  def supported_format
+    return if request.nil?
+    [Mime::ALL, Mime::JSON].include? request.format
+  end
 
   def ensure_json_request
     response.headers['Cache-Control'] = 'no-cache'
-    render json: '', status: 406 unless [Mime::ALL, Mime::JSON].include? request.format
+    render json: '', status: 406 unless supported_format
 
     if request.format == Mime::JSON
       return if Oj.load(request.body.read)
@@ -13,7 +19,9 @@ module ApiHelpers
 
   def ensure_tokens_presence
     if token_params
-      render json: { errors: 'A token is required in order to process that request.' }, status: 401
+      render json: {
+           errors: 'A token is required in order to process that request.'
+        }, status: 401
     else
       return
     end
@@ -27,7 +35,10 @@ module ApiHelpers
   def check_token_timeout
     return if current_user.nil? || !timedout?
     return if params[:controller].eql?('tokens')
-    render json: { errors: 'Timed out. Please sign-in to obtain a new token.' }, status: 401
+
+    render json: {
+         errors: 'Timed out. Please sign-in to obtain a new token.'
+      }, status: 401
   end
 
   def update_last_activity

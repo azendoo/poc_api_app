@@ -1,7 +1,7 @@
 # encoding: UTF-8
 require 'spec_helper'
 
-describe RegistrationsController do
+describe Api::V1::RegistrationsController do
   describe 'routing' do
 
     it 'routes to #create' do

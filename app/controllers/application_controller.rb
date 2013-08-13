@@ -9,12 +9,16 @@ class ApplicationController < ActionController::API
 
   respond_to :json
 
-  rescue_from Mongoid::Errors::DocumentNotFound, BSON::InvalidObjectId do |exception|
-    render json: { errors: 'Not found.' }, status: 404
+  rescue_from Mongoid::Errors::DocumentNotFound, BSON::InvalidObjectId do |e|
+    render json: {
+      errors: 'Not found.'
+    }, status: 404
   end
 
-  rescue_from Oj::ParseError do |exception|
-    render json: { errors: 'Invalid JSON request.' }, status: :bad_request
+  rescue_from Oj::ParseError do |e|
+    render json: {
+      errors: 'Invalid JSON request.'
+    }, status: :bad_request
   end
 
   # needed because store option is set to true in default devise's helper

@@ -3,13 +3,20 @@ source 'https://rubygems.org'
 gem 'rails', '3.2.6'
 gem 'rails-api'
 
+# api versioning
+gem 'api-versions', :github => 'erichmenge/api-versions', :branch => 'master'
+gem 'active_model_version_serializers', :github =>'simonbnrd/active_model_version_serializers', :branch => 'amvs_fixes_sbnrd'
+
 # Required because Rails is not capable of calling your exception
 # handlers when an error occurs during the parsing of request parameters
 gem 'request_exception_handler'
 
 gem 'bson_ext', '1.5.2'
+
+# JSON
 gem 'oj'
 gem 'active_model_serializers'
+#gem 'active_model_version_serializers', :github => "hookercookerman/active_model_version_serializers"
 
 # ajax
 gem 'rack-cors', :require => 'rack/cors'
@@ -18,14 +25,10 @@ gem 'rack-cors', :require => 'rack/cors'
 gem 'devise', :git => 'git@github.com:plataformatec/devise.git', :branch => 'master'
 gem 'warden', :git => 'git@github.com:hassox/warden.git', :branch => 'master'
 
-# authorization
-gem 'doorkeeper'
-
-# db
+# ODM
 gem 'mongoid', '2.4.6'
 
-# api
-# gem 'api-versions'
+# api documentation
 gem 'apipie-rails'
 
 group :development do

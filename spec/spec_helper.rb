@@ -25,24 +25,31 @@ Spork.prefork do
     config.include(APIHelpers)
 
     # Why do we need to purge mongo collections with two passes ?
-    # ... because of PRY which frequently goes crazy and skips all the testing process !
+    # ... because of PRY which frequently goes crazy and skips all
+    # the testing process !
     config.before(:each) do
-      Mongoid.master.collections.reject { |c| c.name == 'system.indexes' }.each(&:drop)
+      Mongoid.master.collections.reject do
+        |c| c.name == 'system.indexes'
+      end.each(&:drop)
     end
 
     config.after(:each) do
-      Mongoid.master.collections.reject { |c| c.name == 'system.indexes' }.each(&:drop)
+      Mongoid.master.collections.reject do
+        |c| c.name == 'system.indexes'
+      end.each(&:drop)
     end
 
     # ## Mock Framework
     #
-    # If you prefer to use mocha, flexmock or RR, uncomment the appropriate line:
+    # If you prefer to use mocha, flexmock or RR, uncomment
+    # the appropriate line:
     #
     # config.mock_with :mocha
     # config.mock_with :flexmock
     # config.mock_with :rr
 
-    # Remove this line if you're not using ActiveRecord or ActiveRecord fixtures
+    # Remove this line if you're not using ActiveRecord
+    # or ActiveRecord fixtures
     # config.fixture_path = '#{::Rails.root}/spec/fixtures'
 
     # If you're not using ActiveRecord, or you'd prefer not to run each of your

@@ -6,6 +6,6 @@ class TaskSerializer < ActiveModel::Serializer
   has_one :user, embeds: :ids, include: false
 
   def url
-    task_url(object)
+    api_task_url(object)
   end
 end
