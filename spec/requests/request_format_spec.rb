@@ -7,7 +7,7 @@ describe 'Request' do
 
   describe '#ensure_json_request' do
     it 'should return a 406 if request format isn\'t JSON' do
-      post api_root_path, format: Mime::HTML
+      post api_root_path, nil, wrong_http_accept_header
       response.status.should eq(406)
     end
 
