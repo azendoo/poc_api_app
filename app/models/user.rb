@@ -2,7 +2,6 @@
 class User
   include Mongoid::Document
   include Mongoid::Timestamps::Created
-  include ActiveModel::SerializerSupport
   # Include default devise modules. Others available are:
   # :confirmable, :lockable and :omniauthable
   devise :database_authenticatable, :registerable, :recoverable,
