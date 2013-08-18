@@ -21,7 +21,7 @@ class Api::V1::TasksController < ApplicationController
   def index
     @tasks = Task.all
 
-    render json: @tasks.to_a, each_serializer: TaskSerializer
+    render json: @tasks
   end
 
   # GET /tasks/1
