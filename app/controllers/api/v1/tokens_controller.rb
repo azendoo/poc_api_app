@@ -20,7 +20,7 @@ class Api::V1::TokensController < Devise::SessionsController
 
       # in case token timed out, we should reset it
       if timedout?
-        current_user.reset_authentication_token
+        current_user.reset_authentication_token!
       end
 
       warden.authenticate!(scope: resource_name, store: false)
