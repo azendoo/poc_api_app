@@ -41,9 +41,7 @@ class Api::V1::TokensController < Devise::SessionsController
       'Cache-Control' => 'no-store',
     })
 
-    # XXX ; ugly, change ASAP
-    if params[:auth_token].present?
-      current_token = params[:auth_token]
+    if current_token = params[:auth_token]
     elsif request.authorization && request.authorization =~ /^Basic (.*)/m
       current_token = Base64.decode64($1).split(/:/, 2)
       current_token = current_token.first

@@ -2,11 +2,18 @@
 module APIHelpers
 
   def base_http_headers
-  {
-    'HTTP_ACCEPT'    => 'application/json',
-    'CONTENT_TYPE'   => 'application/json',
-    'devise.mapping' => Devise.mappings[:user]
-  }
+    {
+      'HTTP_ACCEPT'    => 'application/json',
+      'CONTENT_TYPE'   => 'application/json',
+      'devise.mapping' => Devise.mappings[:user]
+    }
+  end
+
+  def wrong_http_accept_header
+    {
+      'HTTP_ACCEPT'    => 'application/html',
+      'CONTENT_TYPE'   => 'application/html'
+    }
   end
 
   def valid_authorization_header
