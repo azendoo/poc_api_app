@@ -1,7 +1,7 @@
 # encoding: UTF-8
 require 'spec_helper'
 
-describe 'Tokens' do
+describe 'V1::Tokens' do
 
   let(:user) { FactoryGirl.create(:user) }
 

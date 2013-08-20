@@ -1,7 +1,7 @@
 # encoding: UTF-8
 require 'spec_helper'
 
-describe 'Registrations' do
+describe 'V1::Registrations' do
 
   let(:user) { FactoryGirl.build(:user) }
 

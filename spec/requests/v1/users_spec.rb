@@ -1,7 +1,7 @@
 # encoding: UTF-8
 require 'spec_helper'
 
-describe 'Users' do
+describe 'V1::Users' do
 
   let(:user) { FactoryGirl.create(:user) }
   let(:json_response) { response.body }

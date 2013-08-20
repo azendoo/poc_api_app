@@ -1,7 +1,7 @@
 # encoding: UTF-8
 require 'spec_helper'
 
-describe 'Tasks' do
+describe 'V1::Tasks' do
 
   let(:user) { FactoryGirl.create(:user) }
   let(:task) { FactoryGirl.create(:task, user: user) }
