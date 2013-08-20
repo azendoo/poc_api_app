@@ -16,15 +16,6 @@ GIT
       rspec (~> 2.0)
 
 GIT
-  remote: git://github.com/simonbnrd/active_model_version_serializers.git
-  revision: 07374f8450a6394a5020ad0c7bbfc969b626cde1
-  branch: amvs_fixes_sbnrd
-  specs:
-    active_model_version_serializers (0.0.5)
-      active_model_serializers (>= 0.8.1)
-      activesupport (>= 3.0.0)
-
-GIT
   remote: git://github.com/stympy/faker.git
   revision: 57c543804c8a631ec40948aa2c3367c5b6aabded
   specs:
@@ -287,7 +278,6 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers
   active_model_serializers-matchers!
-  active_model_version_serializers!
   api-versions!
   apipie-rails
   bson_ext (= 1.5.2)

@@ -5,7 +5,6 @@ gem 'rails-api'
 
 # api versioning
 gem 'api-versions', :github => 'erichmenge/api-versions', :branch => 'master'
-gem 'active_model_version_serializers', :github =>'simonbnrd/active_model_version_serializers', :branch => 'amvs_fixes_sbnrd'
 
 # Required because Rails is not capable of calling your exception
 # handlers when an error occurs during the parsing of request parameters
