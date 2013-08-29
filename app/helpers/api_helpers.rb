@@ -1,6 +1,5 @@
 # encoding: UTF-8
 module ApiHelpers
-
   def supported_format
     return if request.nil?
     [Mime::ALL, Mime::JSON].include? request.format
@@ -20,8 +19,8 @@ module ApiHelpers
   def ensure_tokens_presence
     if token_params
       render json: {
-           errors: 'A token is required in order to process that request.'
-        }, status: 401
+        errors: 'A token is required in order to process that request.'
+      }, status: 401
     else
       return
     end
@@ -37,8 +36,8 @@ module ApiHelpers
     return if params[:controller].eql?('tokens')
 
     render json: {
-         errors: 'Timed out. Please sign-in to obtain a new token.'
-      }, status: 401
+      errors: 'Timed out. Please sign-in to obtain a new token.'
+    }, status: 401
   end
 
   def update_last_activity
