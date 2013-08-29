@@ -13,14 +13,14 @@ describe 'V1::Users' do
 
     context 'with valid credentials' do
       it 'should succeed' do
-        get api_users_path, nil, valid_authorization_header
+        get users_path, nil, valid_authorization_header
         response.should be_success
       end
     end
 
     context 'with invalid credentials' do
       it 'should fail' do
-        get api_users_path, nil, invalid_authorization_header
+        get users_path, nil, invalid_authorization_header
         response.status.should eq(401)
       end
     end
@@ -31,7 +31,7 @@ describe 'V1::Users' do
 
     context 'with valid credentials' do
       it 'should succeed' do
-        get api_user_path(user.id), nil, valid_authorization_header
+        get user_path(user.id), nil, valid_authorization_header
         response.should be_success
         json_response.should be_json_eql(
           {
@@ -44,7 +44,7 @@ describe 'V1::Users' do
 
     context 'with invalid credentials' do
       it 'should fail' do
-        get api_user_path(user.id), nil, invalid_authorization_header
+        get user_path(user.id), nil, invalid_authorization_header
         response.status.should eq(401)
         json_response.should have_json_path('errors')
       end
@@ -56,7 +56,7 @@ describe 'V1::Users' do
 
     context 'with valid credentials' do
       it 'should succeed' do
-        put api_user_path(user.id), new_user, valid_authorization_header
+        put user_path(user.id), new_user, valid_authorization_header
         response.should be_success
         json_response.should be_json_eql(
           {
@@ -69,7 +69,7 @@ describe 'V1::Users' do
 
     context 'with invalid credentials' do
       it 'should fail' do
-        put api_user_path(user.id), nil, invalid_authorization_header
+        put user_path(user.id), nil, invalid_authorization_header
         response.status.should eq(401)
         json_response.should have_json_path('errors')
       end
