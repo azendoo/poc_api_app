@@ -84,7 +84,6 @@ class V1::TasksController < ApplicationController
   param :id, :undef, desc: 'Task id (tasks/:id)', required: true
   example Docs::TasksDoc.delete_task
   def destroy
-    binding.pry
     @task = Task.find(params[:id])
     @task.destroy
 
