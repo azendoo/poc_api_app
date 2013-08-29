@@ -1,10 +1,10 @@
 # encoding: UTF-8
-class Api::V1::TokensController < Devise::SessionsController
+class V1::TokensController < Devise::SessionsController
+  respond_to :json
+
   skip_before_filter :authenticate_user!
   skip_before_filter :verify_authenticity_token
   skip_before_filter :ensure_tokens_presence, only: [:create]
-
-  respond_to :json
 
   def create
     response.headers.merge!({

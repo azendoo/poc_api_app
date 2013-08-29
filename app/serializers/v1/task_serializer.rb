@@ -1,5 +1,5 @@
 # encoding: UTF-8
-class TaskSerializer < ActiveModel::Serializer
+class V1::TaskSerializer < ActiveModel::Serializer
   embed :ids, include: true
   attributes :id, :label, :created_at, :url
 

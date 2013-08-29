@@ -1,9 +1,9 @@
 # encoding: UTF-8
-class Api::V1::UsersController < ApplicationController
-  before_filter :authenticate_user!, except: [:create, :new, :me]
-  skip_after_filter :update_last_activity, only: [:me]
-
+class V1::UsersController < ApplicationController
   respond_to :json
+
+  before_filter :authenticate_user!, except: [:create, :new]
+  skip_after_filter :update_last_activity, only: [:me]
 
   resource_description do
     short 'Users related endpoints'
@@ -46,7 +46,7 @@ class Api::V1::UsersController < ApplicationController
     @user = User.new(params[:user])
 
     if @user.save
-      render json: @user, status: :created, location: api_user_url(@user)
+      render json: @user, status: :created, location: user_url(@user)
     else
       render json: {
         errors: @user.errors
@@ -61,7 +61,7 @@ class Api::V1::UsersController < ApplicationController
     @user = User.find(params[:id])
 
     if @user.update_attributes(params)
-      render json: @user, status: :created, location: api_user_url(@user)
+      render json: @user, status: :created, location: user_url(@user)
     else
       render json: {
         errors: @user.errors

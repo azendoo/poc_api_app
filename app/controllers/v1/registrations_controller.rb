@@ -1,6 +1,9 @@
 # encoding: UTF-8
-class Api::V1::RegistrationsController < Devise::RegistrationsController
+class V1::RegistrationsController < Devise::RegistrationsController
+  respond_to :json
+
   include Devise::Controllers::Helpers
+
   skip_before_filter :authenticate_user!, :check_token_timeout
   skip_before_filter :ensure_tokens_presence
   skip_after_filter :update_last_activity

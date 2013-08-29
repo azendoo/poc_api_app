@@ -1,5 +1,5 @@
 # encoding: UTF-8
-class UserSerializer < ActiveModel::Serializer
+class V1::UserSerializer < ActiveModel::Serializer
 
   embed :ids, include: true
   attributes :id, :email, :url

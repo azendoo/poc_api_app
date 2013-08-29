@@ -1,34 +1,56 @@
 PocApiApp::Application.routes.draw do
   apipie
 
-  devise_for :users, controllers: { sessions: "tokens" },
-    skip: [:sessions, :registrations, :confirmation, :password],
-    defaults: { format: 'json' }
+  root to: "home#index"
 
-  api vendor_string: 'azendoo', default_version: 1, path: nil do
-    version 1 do
-      cache as: 'v1' do
+  # NOTE :
+  # routes under your default version show up twice when running rake routes
+  # This is due to the fact that Versionist adds another scope to your routes
+  # to handle the default case. Unfortunately rake routes does not show you enough
+  # contextual information to be able to differentiate the two, but this is the
+  # expected behavior.
 
-        root to: "home#index"
+  # API V1 routes
+  api_version(:module => "V1", :header => {:name => "Accept", :value => Mime::API_V1}, :default => true) do
 
-        resources :users, controller: 'users', except: [:edit, :new, :create] do
-          get 'me', :on => :collection, defaults: { format: 'json' }
-        end
+    # rewrite devise behavior
+    devise_for :users, controllers: { sessions: "tokens" },
+      skip: [:sessions, :registrations, :confirmation, :password],
+      defaults: { format: 'json' }
 
-        devise_scope :user do
-          post 'users', to: 'registrations#create'
-          post 'login', to: 'tokens#create'
-          delete 'logout', to: 'tokens#destroy'
-        end
-
-        resources :tasks, except: [:edit, :new]
-      end
+    resources :users, controller: 'users', except: [:edit, :new, :create] do
+      get 'me', :on => :collection, defaults: { format: 'json' }
     end
 
-    version 2 do
-      inherit from: 'v1'
+    devise_scope :user do
+      post 'users', to: 'registrations#create'
+      post 'login', to: 'tokens#create'
+      delete 'logout', to: 'tokens#destroy'
     end
 
+    resources :tasks, except: [:edit, :new]
   end
+
+  # API V2 routes
+  api_version(:module => "V2", :header => {:name => "Accept", :value => Mime::API_V2}) do
+
+    # rewrite devise behavior
+    devise_for :users, controllers: { sessions: "tokens" },
+      skip: [:sessions, :registrations, :confirmation, :password],
+      defaults: { format: 'json' }
+
+    resources :users, controller: 'users', except: [:edit, :new, :create] do
+      get 'me', :on => :collection, defaults: { format: 'json' }
+    end
+
+    devise_scope :user do
+      post 'users', to: 'registrations#create'
+      post 'login', to: 'tokens#create'
+      delete 'logout', to: 'tokens#destroy'
+    end
+
+    resources :tasks, except: [:edit, :new]
+  end
+
 
 end

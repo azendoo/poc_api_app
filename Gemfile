@@ -4,7 +4,7 @@ gem 'rails', '3.2.6'
 gem 'rails-api'
 
 # api versioning
-gem 'api-versions', :github => 'erichmenge/api-versions', :branch => 'master'
+gem 'versionist'
 
 # Required because Rails is not capable of calling your exception
 # handlers when an error occurs during the parsing of request parameters
@@ -14,15 +14,14 @@ gem 'bson_ext', '1.5.2'
 
 # JSON
 gem 'oj'
-gem 'active_model_serializers'
-#gem 'active_model_version_serializers', :github => "hookercookerman/active_model_version_serializers"
+gem 'active_model_serializers', :github => "rails-api/active_model_serializers", :branch => 'master'
 
 # ajax
 gem 'rack-cors', :require => 'rack/cors'
 
 # authentication
-gem 'devise', :git => 'git@github.com:plataformatec/devise.git', :branch => 'master'
-gem 'warden', :git => 'git@github.com:hassox/warden.git', :branch => 'master'
+gem 'devise', :github => 'plataformatec/devise', :branch => 'master'
+gem 'warden', :github => 'hassox/warden', :branch => 'master'
 
 # ODM
 gem 'mongoid', '2.4.6'

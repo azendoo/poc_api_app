@@ -1,8 +1,8 @@
 # encoding: UTF-8
-class Api::V1::TasksController < ApplicationController
-  include ActionController::MimeResponds
-
+class V1::TasksController < ApplicationController
   respond_to :json
+
+  include ActionController::MimeResponds
 
   resource_description do
     short 'Tasks related endpoints'
@@ -17,7 +17,7 @@ class Api::V1::TasksController < ApplicationController
   # GET /tasks.json
   api :GET, '/tasks', 'List tasks'
   description 'This endpoint returns all tasks.'
-  example Api::Docs::TasksDoc.get_tasks
+  example Docs::TasksDoc.get_tasks
   def index
     @tasks = Task.all
 
@@ -29,7 +29,7 @@ class Api::V1::TasksController < ApplicationController
   api :GET, '/tasks/:id', 'Show a task'
   param :id, :undef, desc: 'Task id (tasks/:id)', required: true
   description 'This endpoint returns a specific task which looks like this :'
-  example Api::Docs::TasksDoc.get_task
+  example Docs::TasksDoc.get_task
   def show
     @task = Task.find(params[:id])
 
@@ -47,16 +47,16 @@ class Api::V1::TasksController < ApplicationController
   # POST /tasks
   # POST /tasks.json
   api :POST, '/tasks', 'Create a task'
-  param_group :task, Api::Docs::TasksDoc
+  param_group :task, Docs::TasksDoc
   description 'This endpoint let you crate a new task.'
-  example Api::Docs::TasksDoc.new_task
+  example Docs::TasksDoc.new_task
   def create
 
     @task = Task.new(params)
     @task.user_id = current_user.id
 
     if @task.save
-      render json: @task, status: :created, location: api_task_url(@task)
+      render json: @task, status: :created, location: task_url(@task)
     else
       render json: { errors: @task.errors }, status: :unprocessable_entity
     end
@@ -66,13 +66,13 @@ class Api::V1::TasksController < ApplicationController
   # PATCH/PUT /tasks/1.json
   api :PUT, '/tasks/:id', 'Update a task'
   param :id, :undef, desc: 'Task id (tasks/:id)', required: true
-  param_group :task, Api::Docs::TasksDoc
-  example Api::Docs::TasksDoc.update_task
+  param_group :task, Docs::TasksDoc
+  example Docs::TasksDoc.update_task
   def update
     @task = Task.find(params[:id])
 
     if @task.update_attributes(params)
-      render json: @task, status: :created, location: api_task_url(@task)
+      render json: @task, status: :created, location: task_url(@task)
     else
       render json: { errors: @task.errors }, status: :unprocessable_entity
     end
@@ -82,12 +82,13 @@ class Api::V1::TasksController < ApplicationController
   # DELETE /tasks/1.json
   api :DELETE, '/tasks/:id', 'Destroy a task'
   param :id, :undef, desc: 'Task id (tasks/:id)', required: true
-  example Api::Docs::TasksDoc.delete_task
+  example Docs::TasksDoc.delete_task
   def destroy
+    binding.pry
     @task = Task.find(params[:id])
     @task.destroy
 
-    render json: '{ {} }', status: :ok
+    head :no_content, status: :ok
   end
 
 end

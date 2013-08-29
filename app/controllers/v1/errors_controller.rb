@@ -1,5 +1,7 @@
 # encoding: UTF-8
-class Api::V1::ErrorsController < ApplicationController
+class V1::ErrorsController < ApplicationController
+  respond_to :json
+
   def not_found
     render json: {
       errors: :not_found

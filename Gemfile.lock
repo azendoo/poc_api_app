@@ -1,11 +1,30 @@
 GIT
-  remote: git://github.com/erichmenge/api-versions.git
-  revision: 1095cae9469b163db385b377f212c5a9b1753443
+  remote: git://github.com/hassox/warden.git
+  revision: 15f5dfe7444422a82ef17877d69368cb50344803
   branch: master
   specs:
-    api-versions (1.2.0)
-      actionpack (>= 3.0)
-      activesupport (>= 3.0)
+    warden (1.2.3)
+      rack (>= 1.0)
+
+GIT
+  remote: git://github.com/plataformatec/devise.git
+  revision: 213ed8164112bf0b43ebc54607f0463a14b4e7f1
+  branch: master
+  specs:
+    devise (3.1.0.rc2)
+      bcrypt-ruby (~> 3.0)
+      orm_adapter (~> 0.1)
+      railties (>= 3.2.6, < 5)
+      thread_safe (~> 0.1)
+      warden (~> 1.2.3)
+
+GIT
+  remote: git://github.com/rails-api/active_model_serializers.git
+  revision: 8ac4bf90067eef442a6208848f86e55892d724f1
+  branch: master
+  specs:
+    active_model_serializers (0.8.1)
+      activemodel (>= 3.2)
 
 GIT
   remote: git://github.com/simonbnrd/active_model_serializers-matchers.git
@@ -21,26 +40,6 @@ GIT
   specs:
     faker (1.2.0)
       i18n (~> 0.5)
-
-GIT
-  remote: git@github.com:hassox/warden.git
-  revision: 15f5dfe7444422a82ef17877d69368cb50344803
-  branch: master
-  specs:
-    warden (1.2.3)
-      rack (>= 1.0)
-
-GIT
-  remote: git@github.com:plataformatec/devise.git
-  revision: efe34219a9bdfa5efc2133f6b0aa430713ff3ff8
-  branch: master
-  specs:
-    devise (3.0.1)
-      bcrypt-ruby (~> 3.0)
-      orm_adapter (~> 0.1)
-      railties (>= 3.2.6, < 5)
-      thread_safe (~> 0.1)
-      warden (~> 1.2.3)
 
 GEM
   remote: https://rubygems.org/
@@ -58,8 +57,6 @@ GEM
       rack-cache (~> 1.2)
       rack-test (~> 0.6.1)
       sprockets (~> 2.1.3)
-    active_model_serializers (0.8.1)
-      activemodel (>= 3.0)
     activemodel (3.2.6)
       activesupport (= 3.2.6)
       builder (~> 3.0.0)
@@ -77,9 +74,9 @@ GEM
     apipie-rails (0.0.22)
       rails (>= 3.0.10)
     arel (3.0.2)
-    atomic (1.1.12)
+    atomic (1.1.13)
     awesome_print (1.1.0)
-    bcrypt-ruby (3.1.1)
+    bcrypt-ruby (3.1.2)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
     bson (1.5.2)
@@ -270,15 +267,17 @@ GEM
       polyglot
       polyglot (>= 0.3.1)
     tzinfo (0.3.37)
+    versionist (1.1.0)
+      rails (>= 3)
+      yard (~> 0.7)
     yard (0.8.7)
 
 PLATFORMS
   ruby
 
 DEPENDENCIES
-  active_model_serializers
+  active_model_serializers!
   active_model_serializers-matchers!
-  api-versions!
   apipie-rails
   bson_ext (= 1.5.2)
   devise!
@@ -300,4 +299,5 @@ DEPENDENCIES
   rspec-rails
   spork
   thin
+  versionist
   warden!
