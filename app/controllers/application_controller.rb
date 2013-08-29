@@ -2,14 +2,13 @@
 class ApplicationController < ActionController::API
   include ActionController::MimeResponds
   include ApiHelpers
+  include AmsHelpers
 
   before_filter :ensure_json_request, :ensure_tokens_presence
   before_filter :authenticate_user_from_token!
   before_filter :authenticate_user!
   before_filter :check_token_timeout
   after_filter :update_last_activity
-
-  respond_to :json
 
   rescue_from Mongoid::Errors::DocumentNotFound, BSON::InvalidObjectId do |e|
     render json: {
@@ -42,6 +41,12 @@ class ApplicationController < ActionController::API
       #warden.authenticate!(scope: :user, store: false)
       sign_in user, store: false
     end
+  end
+
+  def default_serializer_options
+    {
+      serializer_key => serializer
+    }
   end
 
 end
