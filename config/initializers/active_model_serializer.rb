@@ -6,5 +6,5 @@ ActiveSupport.on_load(:active_model_serializers) do
 end
 
 # Support for Mongoid :
-Mongoid::Document.send(:include, ActiveModel::SerializerSupport)
-Mongoid::Criteria.delegate(:active_model_serializer, to: :to_a)
+#Mongoid::Document.send(:include, ActiveModel::SerializerSupport)
+#Mongoid::Criteria.delegate(:active_model_serializer, to: :to_a)
