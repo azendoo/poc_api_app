@@ -2,7 +2,8 @@
 module ApiHelpers
   def supported_format
     return if request.nil?
-    [Mime::ALL, Mime::JSON].include? request.format
+    accepted_types = [Mime::ALL, Mime::JSON, Mime::API_V1, Mime::API_V2]
+    accepted_types.include? request.format
   end
 
   def ensure_json_request
