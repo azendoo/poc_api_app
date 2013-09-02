@@ -1,10 +1,10 @@
 # encoding: UTF-8
 require 'spec_helper'
 
-describe V1::UserSerializer do
+describe V2::UserSerializer do
 
   let(:user) { FactoryGirl.create(:user) }
-  let(:user_serializer) { V1::UserSerializer.new(user).to_json }
+  let(:user_serializer) { V2::UserSerializer.new(user).to_json }
 
   context "#to_json" do
 
@@ -14,10 +14,6 @@ describe V1::UserSerializer do
 
     it "includes an email attribute" do
       user_serializer.should have_json_path("email")
-    end
-
-    it "includes an url attribute" do
-      user_serializer.should have_json_path("url")
     end
 
     it "includes a task ids attribute" do

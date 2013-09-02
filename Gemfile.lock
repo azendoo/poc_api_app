@@ -27,14 +27,6 @@ GIT
       activemodel (>= 3.2)
 
 GIT
-  remote: git://github.com/simonbnrd/active_model_serializers-matchers.git
-  revision: 7044988e15387be531cb922053dc308f7febc155
-  specs:
-    active_model_serializers-matchers (0.1.1)
-      active_model_serializers (~> 0.8.1)
-      rspec (~> 2.0)
-
-GIT
   remote: git://github.com/stympy/faker.git
   revision: 57c543804c8a631ec40948aa2c3367c5b6aabded
   specs:
@@ -277,7 +269,6 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers!
-  active_model_serializers-matchers!
   apipie-rails
   bson_ext (= 1.5.2)
   devise!

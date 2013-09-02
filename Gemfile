@@ -43,7 +43,7 @@ group :test do
   gem 'guard-spork'
   gem 'guard-bundler'
   gem 'rb-fsevent', :require => false if RUBY_PLATFORM =~ /darwin/i
-  gem 'active_model_serializers-matchers', github: 'simonbnrd/active_model_serializers-matchers'
+  gem 'json_spec'
 end
 
 group :development, :test do
