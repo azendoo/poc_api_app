@@ -2,12 +2,14 @@
 class V2::UsersController < V1::UsersController
   respond_to :json
 
-  # GET /users/1
-  # GET /users/1.json
-  def show
-    @user = User.find(params[:id])
+  # GET /users
+  # GET /users.json
+  def index
+    @user = User.all
 
-    render json: @user
+    # Just added a strange behavior for
+    # versioning purpose ...
+    render json: @user.last
   end
 
 end
