@@ -9,11 +9,26 @@ module APIHelpers
     }
   end
 
+  def base_http_headers_v2
+    {
+      'HTTP_ACCEPT'    => 'application/vnd.azendoo+json; version=2',
+      'CONTENT_TYPE'   => 'application/json',
+      'devise.mapping' => Devise.mappings[:user]
+    }
+  end
+
   def wrong_http_accept_header
     {
       'HTTP_ACCEPT'    => 'application/html',
       'CONTENT_TYPE'   => 'application/html'
     }
+  end
+
+  def valid_authorization_header_v2
+    authorization_header = base_http_headers_v2
+    authorization_token =  ActionController::HttpAuthentication::Basic.encode_credentials(user.authentication_token, nil)
+    authorization_header['HTTP_AUTHORIZATION'] = authorization_token
+    authorization_header
   end
 
   def valid_authorization_header
