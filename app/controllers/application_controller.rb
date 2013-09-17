@@ -4,7 +4,8 @@ class ApplicationController < ActionController::API
   include ApiHelpers
   include AmsHelpers
 
-  before_filter :ensure_json_request, :ensure_tokens_presence
+  before_filter :ensure_valid_format
+  before_filter :ensure_token_presence
   before_filter :authenticate_user_from_token!
   before_filter :authenticate_user!
   before_filter :check_token_timeout
@@ -14,12 +15,6 @@ class ApplicationController < ActionController::API
     render json: {
       errors: 'Not found.'
     }, status: 404
-  end
-
-  rescue_from Oj::ParseError do |e|
-    render json: {
-      errors: 'Invalid JSON request.'
-    }, status: :bad_request
   end
 
   # needed because store option is set to true in default devise's helper
