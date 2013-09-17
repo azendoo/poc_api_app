@@ -2,17 +2,7 @@
 class V1::UsersController < ApplicationController
   respond_to :json
 
-  before_filter :authenticate_user!, except: [:create, :new]
-  skip_after_filter :update_last_activity, only: [:me]
-
-  resource_description do
-    short 'Users related endpoints'
-    formats ['json']
-
-    error 422, 'Unprocessable entity'
-    error 401, 'Unauthorized'
-    error 404, 'Resource not found'
-  end
+  skip_before_filter :authenticate_user!, only: [:create, :new]
 
   # GET /users
   # GET /users.json
@@ -76,7 +66,7 @@ class V1::UsersController < ApplicationController
     @user = User.find(params[:id])
     @user.destroy
 
-    head :no_content
+    head :ok
   end
 
   # GET /users/me
