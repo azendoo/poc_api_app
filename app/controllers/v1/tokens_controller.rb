@@ -4,7 +4,9 @@ class V1::TokensController < Devise::SessionsController
 
   skip_before_filter :authenticate_user!
   skip_before_filter :verify_authenticity_token
-  skip_before_filter :ensure_tokens_presence, only: [:create]
+  skip_before_filter :check_token_timeout
+  skip_before_filter :ensure_token_presence, only: [:create]
+  skip_after_filter :update_last_activity, only: [:create]
 
   def create
     response.headers.merge!({
@@ -12,21 +14,21 @@ class V1::TokensController < Devise::SessionsController
       'Cache-Control' => 'no-store',
     })
 
+
     # workaround to avoid the creation of a new warden strategy.
     if params[:email].present? && params[:password].present?
 
       params['user'] ||= {}
       params['user'].merge!(email: params[:email], password: params[:password])
 
+      warden.authenticate!(scope: resource_name, store: false)
+
       # in case token timed out, we should reset it
       if timedout?
         current_user.reset_authentication_token!
       end
 
-      warden.authenticate!(scope: resource_name, store: false)
-
       render json: { auth_token: current_user.authentication_token }
-
     else
       render json: {
         errors: 'Missing email or password attribute'
@@ -52,7 +54,7 @@ class V1::TokensController < Devise::SessionsController
     warden.authenticate!(scope: resource_name, store: false)
     current_user.reset_authentication_token!
 
-    render json: '', status: 201
+    head :ok
   end
 
 end
