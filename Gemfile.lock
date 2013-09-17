@@ -224,8 +224,6 @@ GEM
       ffi (>= 0.5.0)
     rdoc (3.12.2)
       json (~> 1.4)
-    request_exception_handler (0.4)
-      actionpack (>= 2.1)
     rspec (2.14.1)
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
@@ -286,7 +284,6 @@ DEPENDENCIES
   rails (= 3.2.6)
   rails-api
   rb-fsevent
-  request_exception_handler
   rspec-rails
   spork
   thin
