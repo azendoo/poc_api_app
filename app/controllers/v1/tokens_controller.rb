@@ -4,45 +4,34 @@ class V1::TokensController < Devise::SessionsController
 
   skip_before_filter :authenticate_user!
   skip_before_filter :verify_authenticity_token
-  skip_before_filter :ensure_tokens_presence, only: [:create]
+  skip_before_filter :check_token_timeout
+  skip_before_filter :ensure_token_presence, only: [:create]
+  skip_after_filter :update_last_activity, only: [:create]
 
   def create
-    response.headers.merge!({
-      'Pragma'        => 'no-cache',
-      'Cache-Control' => 'no-store',
-    })
-
-    # workaround to avoid the creation of a new warden strategy.
-    if params[:email].present? && params[:password].present?
-
+    if credentials_present?
       params['user'] ||= {}
       params['user'].merge!(email: params[:email], password: params[:password])
 
-      # in case token timed out, we should reset it
-      if timedout?
-        current_user.reset_authentication_token!
-      end
-
       warden.authenticate!(scope: resource_name, store: false)
 
-      render json: { auth_token: current_user.authentication_token }
+      current_user.reset_authentication_token! if timedout?
 
+      render json:
+      {
+        auth_token: current_user.authentication_token
+      }, status: :ok
     else
-      render json: {
+      render json:
+      {
         errors: 'Missing email or password attribute'
       }, status: :unauthorized
     end
-
   end
 
   def destroy
-    response.headers.merge!({
-      'Pragma'        => 'no-cache',
-      'Cache-Control' => 'no-store',
-    })
-
-    if current_token = params[:auth_token]
-    elsif request.authorization && request.authorization =~ /^Basic (.*)/m
+    current_token ||= params[:auth_token]
+    if authorization_present?
       current_token = Base64.decode64($1).split(/:/, 2)
       current_token = current_token.first
     end
@@ -52,7 +41,15 @@ class V1::TokensController < Devise::SessionsController
     warden.authenticate!(scope: resource_name, store: false)
     current_user.reset_authentication_token!
 
-    render json: '', status: 201
+    head :ok
   end
 
+  private
+  def credentials_present?
+    params[:email].present? && params[:password].present?
+  end
+
+  def authorization_present?
+    request.authorization.present? && request.authorization =~ /^Basic (.*)/m
+  end
 end

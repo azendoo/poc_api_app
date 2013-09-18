@@ -4,32 +4,21 @@ class V1::RegistrationsController < Devise::RegistrationsController
 
   include Devise::Controllers::Helpers
 
-  skip_before_filter :authenticate_user!, :check_token_timeout
-  skip_before_filter :ensure_tokens_presence
+  skip_before_filter :authenticate_user!
+  skip_before_filter :check_token_timeout
+  skip_before_filter :ensure_token_presence
   skip_after_filter :update_last_activity
-
-  resource_description do
-    resource_id 'users'
-  end
 
   # POST /users
   # POST /users.json
-  api :POST, '/users', 'Create a user'
-  param :user, Hash do
-    param :email, String, desc: 'User\'s email address', required: true
-    param :password, String, desc: 'User\'s password', required: true
-  end
-  error code: 422
   def create
-
-    if params[:email].present? && params[:password].present?
-
+    if credentials_present?
       params['user'] ||= {}
       params['user'].merge!(email: params[:email], password: params[:password])
 
       user = User.new(params[:user])
 
-      if user.save
+      if user.save!
         render json: {
           email: user.email,
           auth_token: user.authentication_token
@@ -47,7 +36,10 @@ class V1::RegistrationsController < Devise::RegistrationsController
         errors: 'Missing email or password attribute'
       }, status: :bad_request
     end
-
   end
 
+  private
+  def credentials_present?
+    params[:email].present? && params[:password].present?
+  end
 end

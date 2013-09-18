@@ -14,6 +14,8 @@ require "rails"
   end
 end
 
+require File.expand_path('lib/middleware/custom_params_parser')
+
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line
   Bundler.require(*Rails.groups(:assets => %w(development test)))
@@ -29,6 +31,7 @@ module PocApiApp
 
     # Custom directories with classes and modules you want to be autoloadable.
     # config.autoload_paths += %W(#{config.root}/extras)
+    config.autoload_paths += Dir["#{config.root}/lib/**/"]
 
     # Only load the plugins named here, in the order given (default is alphabetical).
     # :all can be used as a placeholder for all plugins not explicitly named.
@@ -66,6 +69,7 @@ module PocApiApp
     # config.active_record.whitelist_attributes = true
     config.middleware.use Rack::MethodOverride
     config.middleware.use ActionDispatch::Flash
+    config.middleware.swap ActionDispatch::ParamsParser, CustomParamsParser
 
     config.middleware.insert_before Warden::Manager, Rack::Cors do
       allow do

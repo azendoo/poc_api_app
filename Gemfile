@@ -6,10 +6,6 @@ gem 'rails-api'
 # api versioning
 gem 'versionist'
 
-# Required because Rails is not capable of calling your exception
-# handlers when an error occurs during the parsing of request parameters
-gem 'request_exception_handler'
-
 gem 'bson_ext', '1.5.2'
 
 # JSON
