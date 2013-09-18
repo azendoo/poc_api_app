@@ -6,7 +6,6 @@ class V1::UsersController < ApplicationController
 
   # GET /users
   # GET /users.json
-  api :GET, '/users', 'List users'
   def index
     @users = User.all
 
@@ -15,7 +14,6 @@ class V1::UsersController < ApplicationController
 
   # GET /users/1
   # GET /users/1.json
-  api :GET, '/users/:id', 'Show an user'
   def show
     @user = User.find(params[:id])
 
@@ -46,7 +44,6 @@ class V1::UsersController < ApplicationController
 
   # PATCH/PUT /users/1
   # PATCH/PUT /users/1.json
-  api :PUT, '/users/:id', 'Update an user'
   def update
     @user = User.find(params[:id])
 
@@ -61,7 +58,6 @@ class V1::UsersController < ApplicationController
 
   # DELETE /users/1
   # DELETE /users/1.json
-  api :DELETE, '/users/:id', 'Delete an user'
   def destroy
     @user = User.find(params[:id])
     @user.destroy
@@ -78,5 +74,4 @@ class V1::UsersController < ApplicationController
       render json: { errors: 'Not Authorized.' }, status: 401
     end
   end
-
 end
