@@ -12,15 +12,13 @@ class V1::RegistrationsController < Devise::RegistrationsController
   # POST /users
   # POST /users.json
   def create
-
-    if params[:email].present? && params[:password].present?
-
+    if credentials_present?
       params['user'] ||= {}
       params['user'].merge!(email: params[:email], password: params[:password])
 
       user = User.new(params[:user])
 
-      if user.save
+      if user.save!
         render json: {
           email: user.email,
           auth_token: user.authentication_token
@@ -38,6 +36,10 @@ class V1::RegistrationsController < Devise::RegistrationsController
         errors: 'Missing email or password attribute'
       }, status: :bad_request
     end
+  end
 
+  private
+  def credentials_present?
+    params[:email].present? && params[:password].present?
   end
 end
