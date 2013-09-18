@@ -48,6 +48,15 @@ class User
     end
   end
 
+  def reset_authentication_token
+    self.authentication_token = generate_authentication_token
+  end
+
+  def reset_authentication_token!
+    reset_authentication_token
+    self.save!
+  end
+
   private
   def generate_authentication_token
     loop do
@@ -55,5 +64,4 @@ class User
       break token unless User.where(authentication_token: token).first
     end
   end
-
 end

@@ -3,6 +3,7 @@
 /tmp
 *.DS_Store
 /bin
+*.swp
 *.gem
 *.rbc
 .bundle

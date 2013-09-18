@@ -1,24 +1,24 @@
 # encoding: UTF-8
 module ApiHelpers
-  def supported_format
-    return if request.nil?
+  def valid_mime_type?
     accepted_types = [Mime::ALL, Mime::JSON, Mime::API_V1, Mime::API_V2]
-    accepted_types.include? request.format
+    accepted_types.include? request.content_type
   end
 
-  def ensure_json_request
-    response.headers['Cache-Control'] = 'no-cache'
-    render json: '', status: 406 unless supported_format
-
-    if request.format == Mime::JSON
-      return if Oj.load(request.body.read)
-    else
-      return
-    end
+  def token_present?
+    params[:auth_token].present? || request.headers['Authorization'].present?
   end
 
-  def ensure_tokens_presence
-    if token_params
+  def ensure_valid_format
+    head :bad_request unless valid_mime_type?
+  end
+
+  def update_last_activity
+    current_user.update_attribute(:last_activity_at, Time.now)
+  end
+
+  def ensure_token_presence
+    unless token_present?
       render json: {
         errors: 'A token is required in order to process that request.'
       }, status: 401
@@ -27,26 +27,14 @@ module ApiHelpers
     end
   end
 
-  def token_params
-    params[:auth_token].blank? && request.headers['Authorization'].blank?
-  end
-
-  # XXX WIP
   def check_token_timeout
-    return if current_user.nil? || !timedout?
-    return if params[:controller].eql?('tokens')
-
+    return unless timedout?
     render json: {
       errors: 'Timed out. Please sign-in to obtain a new token.'
     }, status: 401
   end
 
-  def update_last_activity
-    current_user.update_attribute(:last_activity_at, Time.now) unless current_user.nil?
-  end
-
   def timedout?
-    return if current_user.nil?
     !current_user.timeout_in.nil? && current_user.last_activity_at && current_user.last_activity_at <= current_user.timeout_in.ago
   end
 
