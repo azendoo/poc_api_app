@@ -50,6 +50,6 @@ class V1::TokensController < Devise::SessionsController
   end
 
   def authorization_present?
-    request.authorization && request.authorization =~ /^Basic (.*)/m
+    request.authorization.present? && request.authorization =~ /^Basic (.*)/m
   end
 end
