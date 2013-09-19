@@ -1,5 +1,4 @@
 PocApiApp::Application.routes.draw do
-  apipie
 
   root to: "home#index"
 
