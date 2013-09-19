@@ -20,6 +20,12 @@ module AmsHelpers
     serializer_name.constantize rescue nil
   end
 
+  def default_serializer_options
+    {
+      serializer_key => serializer
+    }
+  end
+
 #  def default_serializer
 #    ActiveModel::DefaultSerializer
 #  end
