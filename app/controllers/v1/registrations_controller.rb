@@ -4,6 +4,7 @@ class V1::RegistrationsController < Devise::RegistrationsController
 
   include Devise::Controllers::Helpers
 
+  skip_before_filter :authenticate_user_from_token!
   skip_before_filter :authenticate_user!
   skip_before_filter :check_token_timeout
   skip_before_filter :ensure_token_presence
@@ -22,7 +23,7 @@ class V1::RegistrationsController < Devise::RegistrationsController
         render json: {
           email: user.email,
           auth_token: user.authentication_token
-        }, status: 201
+        }, status: :created
         return
       else
         clean_up_passwords user
@@ -36,10 +37,5 @@ class V1::RegistrationsController < Devise::RegistrationsController
         errors: 'Missing email or password attribute'
       }, status: :bad_request
     end
-  end
-
-  private
-  def credentials_present?
-    params[:email].present? && params[:password].present?
   end
 end
