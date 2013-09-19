@@ -31,7 +31,8 @@ module AmsHelpers
 #  end
 
   def serializer_name
-    self.class.name.demodulize.sub(/Controller$/,'').singularize + "Serializer"
+    class_name = self.class.name.demodulize
+    class_name.demodulize.sub(/Controller$/, '').singularize + 'Serializer'
   end
 
   def single_action?

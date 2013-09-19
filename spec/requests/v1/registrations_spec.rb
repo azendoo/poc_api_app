@@ -14,7 +14,7 @@ describe 'V1::Registrations' do
 
     it 'should fail with invalid credentials' do
       post users_path, invalid_credentials, base_http_headers
-      response.status.should eq(400)
+      response.status.should eq(401)
     end
   end
 

@@ -15,12 +15,22 @@ module ApiHelpers
   end
 
   def ensure_token_presence
-    unless token_present?
+    if !token_present?
       render json: {
         errors: 'A token is required in order to process that request.'
       }, status: 401
     else
       return
+    end
+  end
+
+  def ensure_credentials_presence
+    if credentials_present?
+      return
+    else
+      render json: {
+        errors: 'Missing email or password attribute' },
+        status: :unauthorized
     end
   end
 
@@ -37,7 +47,10 @@ module ApiHelpers
   end
 
   def timedout?
-    !current_user.timeout_in.nil? && current_user.last_activity_at && current_user.last_activity_at <= current_user.timeout_in.ago
+    last_access = current_user.last_activity_at
+    expiration_time = current_user.timeout_in.ago
+
+    current_user.timeout_in && last_access && last_access <= expiration_time
   end
 
   ## authentication related helpers ##
@@ -54,7 +67,7 @@ module ApiHelpers
   end
 
   def fetch_token_from_header(request)
-    decode_credentials(request).split(':',2).first
+    decode_credentials(request).split(':', 2).first
   end
 
   def fetch_token(request)
@@ -62,6 +75,15 @@ module ApiHelpers
       current_token = fetch_token_from_header(request)
     else
       current_token = params[:auth_token].presence
+    end
+  end
+
+  def authenticate_from_credentials!(email, password)
+    current_user = User.where(email: params[:email]).first
+
+    if current_user.valid_password?(params[:password])
+      sign_in current_user, store: false
+      current_user.reset_authentication_token! if timedout?
     end
   end
 end
