@@ -2,6 +2,7 @@
 class V1::TokensController < Devise::SessionsController
   respond_to :json
 
+  skip_before_filter :authenticate_user_from_token!, only: [:create]
   skip_before_filter :authenticate_user!
   skip_before_filter :verify_authenticity_token
   skip_before_filter :check_token_timeout
@@ -17,39 +18,29 @@ class V1::TokensController < Devise::SessionsController
 
       current_user.reset_authentication_token! if timedout?
 
-      render json:
-      {
+      render json: {
         auth_token: current_user.authentication_token
       }, status: :ok
     else
-      render json:
-      {
+      render json: {
         errors: 'Missing email or password attribute'
       }, status: :unauthorized
     end
   end
 
   def destroy
-    current_token ||= params[:auth_token]
-    if authorization_present?
-      current_token = Base64.decode64($1).split(/:/, 2)
-      current_token = current_token.first
+    # since we are dealing with a devise controller
+    # we can't use 'authenticate_user!' method, thus
+    # we must directly call warden.authenticate :
+
+    current_token = fetch_token(request)
+
+    user = User.where(authentication_token: current_token).first
+    user = warden.authenticate!(scope: :user, store: false)
+
+    if user
+      user.reset_authentication_token!
+      head :ok
     end
-
-    @user = User.where(authentication_token: current_token).first
-
-    warden.authenticate!(scope: resource_name, store: false)
-    current_user.reset_authentication_token!
-
-    head :ok
-  end
-
-  private
-  def credentials_present?
-    params[:email].present? && params[:password].present?
-  end
-
-  def authorization_present?
-    request.authorization.present? && request.authorization =~ /^Basic (.*)/m
   end
 end
