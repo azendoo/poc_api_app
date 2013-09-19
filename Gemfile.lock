@@ -63,8 +63,6 @@ GEM
     activesupport (3.2.6)
       i18n (~> 0.6)
       multi_json (~> 1.0)
-    apipie-rails (0.0.23)
-      rails (>= 3.0.10)
     arel (3.0.2)
     atomic (1.1.14)
     awesome_print (1.1.0)
@@ -188,6 +186,8 @@ GEM
     pry-stack_explorer (0.4.9.1)
       binding_of_caller (>= 0.7)
       pry (>= 0.9.11)
+    puma (2.6.0)
+      rack (>= 1.1, < 2.0)
     rack (1.4.5)
     rack-cache (1.2)
       rack (>= 0.4)
@@ -267,7 +267,6 @@ PLATFORMS
 
 DEPENDENCIES
   active_model_serializers!
-  apipie-rails
   bson_ext (= 1.5.2)
   devise!
   factory_girl_rails
@@ -280,6 +279,7 @@ DEPENDENCIES
   mongoid (= 2.4.6)
   mongoid-rspec (= 1.4.5)
   oj
+  puma
   rack-cors
   rails (= 3.2.6)
   rails-api

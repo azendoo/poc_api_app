@@ -24,28 +24,15 @@ class ApplicationController < ActionController::API
 
   private
   def authenticate_user_from_token!
-    if authorization_present?
-      current_token = decode_credentials(request).split(':',2).first
-    else
-      current_token = params[:auth_token]
-    end
+    # get auth token from HTTP header
+    # (Authorization) or params[:auth_token]
+    current_token = fetch_token(request)
 
     user = current_token && User.where(authentication_token: current_token).first
 
-    sign_in(user, store: false) if user
-  end
-
-  def authorization_present?
-    request.authorization.present? && request.authorization =~ /^Basic (.*)/m
-  end
-
-  def default_serializer_options
-    {
-      serializer_key => serializer
-    }
-  end
-
-  def decode_credentials(request)
-    ::Base64.decode64(request.authorization.split(' ', 2).last || '')
+    # use secure_compare method to mitigate timing attacks
+    if user && Devise.secure_compare(user.authentication_token, current_token)
+      sign_in user, store: false
+    end
   end
 end

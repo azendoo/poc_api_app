@@ -2,6 +2,7 @@ source 'https://rubygems.org'
 
 gem 'rails', '3.2.6'
 gem 'rails-api'
+gem 'puma'
 
 # api versioning
 gem 'versionist'
@@ -21,9 +22,6 @@ gem 'warden', :github => 'hassox/warden', :branch => 'master'
 
 # ODM
 gem 'mongoid', '2.4.6'
-
-# api documentation
-gem 'apipie-rails'
 
 group :development do
   gem 'jazz_hands'
