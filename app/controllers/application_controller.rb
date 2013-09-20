@@ -1,8 +1,10 @@
 # encoding: UTF-8
 class ApplicationController < ActionController::API
   include ActionController::MimeResponds
-  include ApiHelpers
-  include AmsHelpers
+  include Api::Authentication
+  include Api::Serializer
+  include Api::Request
+  include Api::Timeout
 
   before_filter :ensure_valid_format
   before_filter :ensure_token_presence
