@@ -5,7 +5,7 @@ class User
   # Include default devise modules. Others available are:
   # :confirmable, :lockable and :omniauthable
   devise :database_authenticatable, :registerable, :recoverable,
-    :rememberable, :trackable, :validatable, :timeoutable
+         :rememberable, :trackable, :validatable, :timeoutable
 
   before_save :ensure_authentication_token
 
@@ -58,6 +58,7 @@ class User
   end
 
   private
+
   def generate_authentication_token
     loop do
       token = Devise.friendly_token

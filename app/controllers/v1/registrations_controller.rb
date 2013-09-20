@@ -4,6 +4,8 @@ class V1::RegistrationsController < Devise::RegistrationsController
 
   include Devise::Controllers::Helpers
 
+  before_filter :ensure_credentials_presence
+
   skip_before_filter :authenticate_user_from_token!
   skip_before_filter :authenticate_user!
   skip_before_filter :check_token_timeout
@@ -13,29 +15,20 @@ class V1::RegistrationsController < Devise::RegistrationsController
   # POST /users
   # POST /users.json
   def create
-    if credentials_present?
-      params['user'] ||= {}
-      params['user'].merge!(email: params[:email], password: params[:password])
+    u = User.new(resource_params)
 
-      user = User.new(params[:user])
-
-      if user.save!
-        render json: {
-          email: user.email,
-          auth_token: user.authentication_token
-        }, status: :created
-        return
-      else
-        clean_up_passwords user
-        render  json: {
-          errors: user.errors
-        }, status: :unprocessable_entity
-      end
-
+    if u.save!
+      render json: { email: u.email, auth_token: u.authentication_token },
+        status: :created
     else
-      render json: {
-        errors: 'Missing email or password attribute'
-      }, status: :bad_request
+      clean_up_passwords u
+      render  json: { errors: u.errors }, status: :unprocessable_entity
     end
+  end
+
+  private
+
+  def resource_params
+    params.permit(:email, :password)
   end
 end

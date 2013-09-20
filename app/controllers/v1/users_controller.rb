@@ -31,7 +31,7 @@ class V1::UsersController < ApplicationController
   # POST /users
   # POST /users.json
   def create
-    @user = User.new(params[:user])
+    @user = User.new(resource_params)
 
     if @user.save
       render json: @user, status: :created, location: user_url(@user)
@@ -47,7 +47,7 @@ class V1::UsersController < ApplicationController
   def update
     @user = User.find(params[:id])
 
-    if @user.update_attributes(params)
+    if @user.update_attributes(resource_params)
       render json: @user, status: :created, location: user_url(@user)
     else
       render json: {
@@ -69,9 +69,15 @@ class V1::UsersController < ApplicationController
   # GET /users/me.json
   def me
     if current_user
-      render json: @current_user
+      render json: current_user
     else
       render json: { errors: 'Not Authorized.' }, status: 401
     end
+  end
+
+  private
+
+  def resource_params
+    params.permit(:id, :email, :password)
   end
 end
