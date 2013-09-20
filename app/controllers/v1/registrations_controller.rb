@@ -5,7 +5,6 @@ class V1::RegistrationsController < Devise::RegistrationsController
   include Devise::Controllers::Helpers
 
   before_filter :ensure_credentials_presence
-  before_filter :update_sanitized_params, if: :devise_controller?
 
   skip_before_filter :authenticate_user_from_token!
   skip_before_filter :authenticate_user!
@@ -16,11 +15,11 @@ class V1::RegistrationsController < Devise::RegistrationsController
   # POST /users
   # POST /users.json
   def create
-    u = User.new(params)
+    u = User.new(resource_params)
 
     if u.save!
       render json: { email: u.email, auth_token: u.authentication_token },
-             status: :created
+        status: :created
     else
       clean_up_passwords u
       render  json: { errors: u.errors }, status: :unprocessable_entity
@@ -29,9 +28,7 @@ class V1::RegistrationsController < Devise::RegistrationsController
 
   private
 
-  def update_sanitized_params
-    devise_parameter_sanitizer.for(:sign_up) do |e|
-      e.permit(:email, :password)
-    end
+  def resource_params
+    params.permit(:email, :password)
   end
 end

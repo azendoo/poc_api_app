@@ -31,7 +31,7 @@ class V1::TasksController < ApplicationController
   # POST /tasks
   # POST /tasks.json
   def create
-    @task = Task.new(params)
+    @task = Task.new(resource_params)
     @task.user_id = current_user.id
 
     if @task.save
@@ -46,7 +46,7 @@ class V1::TasksController < ApplicationController
   def update
     @task = Task.find(params[:id])
 
-    if @task.update_attributes(params)
+    if @task.update_attributes(resource_params)
       render json: @task, status: :created, location: task_url(@task)
     else
       render json: { errors: @task.errors }, status: :unprocessable_entity
@@ -62,4 +62,9 @@ class V1::TasksController < ApplicationController
     head :ok
   end
 
+  private
+
+  def resource_params
+    params.permit(:id, :label)
+  end
 end

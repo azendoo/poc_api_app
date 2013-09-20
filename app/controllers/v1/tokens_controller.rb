@@ -38,4 +38,10 @@ class V1::TokensController < Devise::SessionsController
       head :ok
     end
   end
+
+  private
+
+  def resource_params
+    params.permit(:email, :password)
+  end
 end
