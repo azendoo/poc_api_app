@@ -26,25 +26,28 @@ module APIHelpers
 
   def valid_authorization_header_v2
     authorization_header = base_http_headers_v2
-    authorization_token =  ActionController::HttpAuthentication::Basic.encode_credentials(user.authentication_token, nil)
+    authorization_token =  encode_credentials(user.authentication_token, nil)
     authorization_header['HTTP_AUTHORIZATION'] = authorization_token
     authorization_header
   end
 
   def valid_authorization_header
     authorization_header = base_http_headers
-    authorization_token =  ActionController::HttpAuthentication::Basic.encode_credentials(user.authentication_token, nil)
+    authorization_token =  encode_credentials(user.authentication_token, nil)
     authorization_header['HTTP_AUTHORIZATION'] = authorization_token
     authorization_header
   end
 
   def invalid_authorization_header
     authorization_header = base_http_headers
-    authorization_token =  ActionController::HttpAuthentication::Basic.encode_credentials('123456', nil)
+    authorization_token =  encode_credentials('123456', nil)
     authorization_header['HTTP_AUTHORIZATION'] = authorization_token
     authorization_header
   end
 
+  def encode_credentials(user_name, password)
+    "Basic #{::Base64.strict_encode64("#{user_name}:#{password}")}"
+  end
   # Authentication credentials
   def valid_credentials
     { email: user.email, password: user.password }.to_json
