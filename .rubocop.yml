@@ -4,6 +4,5 @@ AllCops:
     - config.ru
   Excludes:
     - db/**
-    - app/controllers/api/docs/**
     - config/**
     - script/**
