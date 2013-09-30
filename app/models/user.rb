@@ -34,6 +34,9 @@ class User
 
   has_many    :tasks, dependent: :destroy
 
+  ## OAuth ##
+  has_many :oauth_applications, class_name: 'Doorkeeper::Application', as: :owner
+
   attr_accessible :email, :password, :remember_me
 
   def self.find_by_email(email)
