@@ -36,7 +36,8 @@ class User
 
   ## OAuth ##
   has_many :applications, class_name: 'Application', as: :owner
-
+  has_many :access_tokens, class_name: 'AccessToken', as: :resource_owner
+ 
   attr_accessible :email, :password, :remember_me
 
   def self.find_by_email(email)
