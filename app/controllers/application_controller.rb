@@ -29,18 +29,15 @@ class ApplicationController < ActionController::API
   def authenticate_user_from_token!
     # get auth token from HTTP header
     # (Authorization) or params[:auth_token]
-    current_token = fetch_token(request)
-    current_user  = User.where(authentication_token: current_token).first
+    user_token = fetch_token(request)
+    user  = user_token && User.find_by_token(user_token)
 
-    return unless current_user
-
-    match_user = current_token && current_user
-    # use secure_compare method to mitigate timing attacks
-    match_token = safe_compare current_user.authentication_token, current_token
-
-    sign_in(current_user, store: false) if match_user && match_token
+    if user && safe_compare(user.authentication_token, user_token)
+      sign_in(user, store: false)
+    end
   end
 
+  # use secure_compare method to mitigate timing attacks
   def safe_compare(a, b)
     Devise.secure_compare a, b
   end
