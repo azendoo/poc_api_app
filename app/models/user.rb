@@ -45,6 +45,10 @@ class User
     }).first
   end
 
+  def self.find_by_token(token)
+    User.where(authentication_token: token).first
+  end
+
   def ensure_authentication_token
     if authentication_token.blank?
       self.authentication_token = generate_authentication_token
