@@ -15,6 +15,8 @@ gem 'bson_ext', '1.5.2'
 gem 'oj'
 gem 'active_model_serializers', :github => "rails-api/active_model_serializers", :branch => 'master'
 
+gem 'rest-client'
+
 # ajax
 gem 'rack-cors', :require => 'rack/cors'
 

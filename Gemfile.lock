@@ -224,6 +224,8 @@ GEM
       ffi (>= 0.5.0)
     rdoc (3.12.2)
       json (~> 1.4)
+    rest-client (1.6.7)
+      mime-types (>= 1.16)
     rspec (2.14.1)
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
@@ -288,6 +290,7 @@ DEPENDENCIES
   rails (= 3.2.6)
   rails-api
   rb-fsevent
+  rest-client
   rspec-rails
   spork
   strong_parameters
