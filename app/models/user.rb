@@ -5,9 +5,7 @@ class User
   # Include default devise modules. Others available are:
   # :confirmable, :lockable and :omniauthable
   devise :database_authenticatable, :registerable, :recoverable,
-         :rememberable, :trackable, :validatable, :timeoutable
-
-  before_save :ensure_authentication_token
+    :rememberable, :trackable, :validatable, :timeoutable
 
   ## Database authenticatable
   field :email,              type: String, null: false, default: ''
@@ -30,6 +28,7 @@ class User
   field :last_activity_at,   type: Time
 
   ## Token authenticatable
+  ## TODO : remove
   field :authentication_token, type: String
 
   has_many    :tasks, dependent: :destroy
@@ -47,20 +46,20 @@ class User
     }).first
   end
 
+  # TODO :
+  # - raise en error/exception if nothing is found
+  # - use indexes for performance issues
   def self.find_by_token(token)
-    User.where(authentication_token: token).first
+    user_id = AccessToken.where(:token => token).first.resource_owner_id
+    User.where(_id: user_id).first
   end
 
-  def ensure_authentication_token
-    if authentication_token.blank?
-      self.authentication_token = generate_authentication_token
-    end
-  end
-
+  # TODO : remove
   def reset_authentication_token
     self.authentication_token = generate_authentication_token
   end
 
+  # TODO : remove
   def reset_authentication_token!
     reset_authentication_token
     self.save!
@@ -68,6 +67,7 @@ class User
 
   private
 
+  # TODO : remove
   def generate_authentication_token
     loop do
       token = Devise.friendly_token
