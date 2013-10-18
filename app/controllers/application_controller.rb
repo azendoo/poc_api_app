@@ -26,19 +26,14 @@ class ApplicationController < ActionController::API
 
   private
 
+  # TODO : should be updated to mitigate timing attacks
   def authenticate_user_from_token!
     # get auth token from HTTP header
     # (Authorization) or params[:auth_token]
     user_token = fetch_token(request)
     user  = user_token && User.find_by_token(user_token)
 
-    if user && safe_compare(user.authentication_token, user_token)
-      sign_in(user, store: false)
-    end
+    sign_in(user, store: false) if user
   end
 
-  # use secure_compare method to mitigate timing attacks
-  def safe_compare(a, b)
-    Devise.secure_compare a, b
-  end
 end
