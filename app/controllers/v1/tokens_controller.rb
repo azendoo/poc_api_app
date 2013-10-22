@@ -15,11 +15,16 @@ class V1::TokensController < Devise::SessionsController
       authenticate_from_credentials!(params[:email], params[:password])
 
       if !current_user.nil?
-        render json: { auth_token: current_user.authentication_token },
-          status: :ok
+        token_infos = current_user.access_tokens.first
+
+        render json: {
+          auth_token: token_infos.token,
+          expires_in: token_infos.expires_in
+        }, status: :ok
       else
-        render json: { errors: 'Invalid email or password' },
-          status: :unauthorized
+        render json: {
+          errors: 'Invalid email or password'
+        }, status: :unauthorized
       end
   end
 
