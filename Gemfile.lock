@@ -27,6 +27,13 @@ GIT
       activemodel (>= 3.2)
 
 GIT
+  remote: git://github.com/ryanb/cancan.git
+  revision: 4560928dc375f9b31de00381c98334eb6aabc4b9
+  branch: master
+  specs:
+    cancan (1.6.10)
+
+GIT
   remote: git://github.com/stympy/faker.git
   revision: eefc245dd10eb51045616160c13a247108ab09b0
   specs:
@@ -274,6 +281,7 @@ PLATFORMS
 DEPENDENCIES
   active_model_serializers!
   bson_ext (= 1.5.2)
+  cancan!
   devise!
   factory_girl_rails
   faker!

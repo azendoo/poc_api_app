@@ -23,6 +23,7 @@ gem 'rack-cors', :require => 'rack/cors'
 # authentication
 gem 'devise', :github => 'plataformatec/devise', :branch => 'master'
 gem 'warden', :github => 'hassox/warden', :branch => 'master'
+gem 'cancan', :github => 'ryanb/cancan', :branch => 'master'
 
 # ODM
 gem 'mongoid', '2.4.6'
