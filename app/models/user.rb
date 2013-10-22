@@ -47,11 +47,10 @@ class User
   end
 
   # TODO :
-  # - raise en error/exception if nothing is found
-  # - use indexes for performance issues
+  # raise a better exception (AzException ?)
   def self.find_by_token(token)
-    user_id = AccessToken.where(:token => token).first.resource_owner_id
-    User.where(_id: user_id).first
+    access_token = AccessToken.where(:token => token).first || raise(CanCan::AccessDenied)
+    User.where(_id: access_token.resource_owner_id).first
   end
 
   # TODO : remove

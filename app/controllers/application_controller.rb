@@ -14,10 +14,14 @@ class ApplicationController < ActionController::API
   after_filter :update_last_activity
 
   rescue_from Mongoid::Errors::DocumentNotFound,
-              BSON::InvalidObjectId do |e|
+    BSON::InvalidObjectId do |e|
     render json: {
       errors: 'Not found.'
     }, status: 404
+  end
+
+  rescue_from CanCan::AccessDenied do |exception|
+    head :unauthorized
   end
 
   def current_user
