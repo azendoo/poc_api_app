@@ -3,7 +3,7 @@ defaults: &defaults
   user_inactivity_timeout: 7200
   doorkeeper_app_id: "da4013ca5a4a696ca740c9e16b55650ca984f81bf86dc2bd8dc122dc0f3d0079"
   doorkeeper_app_secret: "0e953030d6135eb6cf8c64d2fd6686b40cf6619daa08b40b8a122aa31e996ba0"
-  doorkeeper_app_url: "http://localhost:3003"
+  doorkeeper_app_url: "http://localhost:3004"
 
 development: &development
   <<: *defaults
