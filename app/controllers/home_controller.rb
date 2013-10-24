@@ -2,8 +2,10 @@
 class HomeController < ApplicationController
   respond_to :json
 
-  skip_before_filter :ensure_tokens_presence
-  skip_before_filter :authenticate_user!, :check_token_timeout
+  skip_before_filter :ensure_token_presence
+  skip_before_filter :authenticate_user!
+  skip_before_filter :authenticate_user_from_token
+  skip_before_filter :check_token_timeout
   skip_after_filter :update_last_activity
 
   def index
