@@ -44,9 +44,4 @@ class V1::TokensController < Devise::SessionsController
     end
   end
 
-  private
-
-  def resource_params
-    params.permit(:email, :password)
-  end
 end
