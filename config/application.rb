@@ -14,8 +14,6 @@ require "rails"
   end
 end
 
-require File.expand_path('lib/middleware/custom_params_parser')
-
 if defined?(Bundler)
   # If you precompile assets before deploying to production, use this line
   Bundler.require(*Rails.groups(:assets => %w(development test)))
@@ -69,8 +67,6 @@ module PocApiApp
     # config.active_record.whitelist_attributes = true
     config.middleware.use Rack::MethodOverride
     config.middleware.use ActionDispatch::Flash
-    config.middleware.swap ActionDispatch::ParamsParser, CustomParamsParser
-
     config.middleware.insert_before Warden::Manager, Rack::Cors do
       allow do
         origins '*'

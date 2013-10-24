@@ -4,11 +4,15 @@ module Api
   module Request
     def valid_mime_type?
       accepted_types = [Mime::ALL, Mime::JSON, Mime::API_V1, Mime::API_V2]
-      accepted_types.include? request.content_type
+      accepted_types.include? request.accept
     end
 
     def ensure_valid_format
-      head :bad_request unless valid_mime_type?
+      unless valid_mime_type?
+        render json: {
+          errors: 'Invalid media type.'
+        }, status: :bad_request
+      end
     end
 
     def token_present?
