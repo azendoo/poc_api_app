@@ -1,8 +1,5 @@
 # encoding: UTF-8
 class V1::TasksController < ApplicationController
-  respond_to :json
-
-  include ActionController::MimeResponds
 
   # GET /tasks
   # GET /tasks.json
@@ -31,6 +28,7 @@ class V1::TasksController < ApplicationController
   # POST /tasks
   # POST /tasks.json
   def create
+
     @task = Task.new(resource_params)
     @task.user_id = current_user.id
 

@@ -6,6 +6,8 @@ class ApplicationController < ActionController::API
   include Api::Request
   include Api::Timeout
 
+  respond_to :json
+
   before_filter :ensure_valid_format
   before_filter :ensure_token_presence
   before_filter :authenticate_user_from_token!
