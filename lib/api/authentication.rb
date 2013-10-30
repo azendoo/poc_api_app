@@ -1,7 +1,8 @@
 # encoding: utf-8
 module Api
-  # Handle authentication for HTTP header and params
+  # XXX : Handle authentication for HTTP header and params
   module Authentication
+    # XXX : Sould be removed if authentication is done on provider.
     def credentials_present?
       params[:email].present? && params[:password].present?
     end
@@ -18,6 +19,8 @@ module Api
       decode_credentials(request).split(':', 2).first
     end
 
+    # XXX : Fetch token from Authorization HTTP header, if not
+    # present check on given params :
     def fetch_token(request)
       if authorization_present?
         current_token = fetch_token_from_header(request)
@@ -26,8 +29,12 @@ module Api
       end
     end
 
+    # XXX :
+    # Should be removed if authentication is only done on
+    # OAuth2 provider's side using the grant_type OAuth strategy.
     def authenticate_from_credentials!(email, password)
       current_user = User.where(email: params[:email]).first
+      return if current_user.nil?
 
       if current_user.valid_password?(params[:password])
         sign_in current_user, store: false

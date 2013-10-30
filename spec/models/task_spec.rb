@@ -1,6 +1,7 @@
 # encoding: UTF-8
 require 'spec_helper'
 
+# XXX : Dumb model testing.
 describe Task do
 
   let(:user) { FactoryGirl.create(:user) }

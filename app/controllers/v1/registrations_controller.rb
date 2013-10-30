@@ -17,8 +17,13 @@ class V1::RegistrationsController < Devise::RegistrationsController
   def create
     u = User.new(resource_params)
 
-
-    #XXX WIP
+    # XXX :
+    # That was a big WIP and only here for testing purpose.
+    # It should be updated. Or better, it should be removed and
+    # never be called from the API server but directly from our webapp.
+    #
+    # I used that method to ask OAuth provider for a default Bearer token
+    # just after users signed up
     if u.save
       # ask for a brand new oauth token
       if u.access_tokens.blank?
@@ -32,8 +37,9 @@ class V1::RegistrationsController < Devise::RegistrationsController
         token_infos = JSON.parse(response.body)
         render json: token_infos, status: :created
       else
-        # lets do something in the future if there's a problem
-        # with the oauth provider
+        # XXX : (comment below was just for previous version)
+        # Lets do something in the future if there's a problem
+        # with the OAuth provider
       end
     else
       clean_up_passwords u

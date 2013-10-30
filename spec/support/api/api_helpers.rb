@@ -1,5 +1,11 @@
 # encoding: UTF-8
 module APIHelpers
+  # XXX :
+  # Yep, the following file is quite huge.
+  # It reflects various helpers which were used in the old PoC
+  # version (Devise auth_token). Those helpers are mainly defining
+  # various HTTP headers with particular MIME types and Authorization
+  # headers.
 
   def base_http_headers
     {

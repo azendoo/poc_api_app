@@ -1,3 +1,6 @@
+# encoding: UTF-8
+# XXX :
+# old Devise's strategy that should be removed
 require 'devise/strategies/authenticatable'
 
 module Devise

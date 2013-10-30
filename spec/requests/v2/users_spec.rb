@@ -1,6 +1,10 @@
 # encoding: UTF-8
 require 'spec_helper'
 
+# XXX :
+# It uses 'json-spec' to validate responses.
+# Note: related to old PoC version which used Devise auth token.
+# It was to check for a different behavior between API_V1 and API_V2.
 describe 'V2::Users' do
 
   let(:user) { FactoryGirl.create(:user) }

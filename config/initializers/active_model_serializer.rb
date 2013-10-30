@@ -5,6 +5,6 @@ ActiveSupport.on_load(:active_model_serializers) do
   ActiveModel::ArraySerializer.root = false
 end
 
-# Support for Mongoid :
+# Trick to add support for Mongoid, mandatory on previous AMS version :
 #Mongoid::Document.send(:include, ActiveModel::SerializerSupport)
 #Mongoid::Criteria.delegate(:active_model_serializer, to: :to_a)

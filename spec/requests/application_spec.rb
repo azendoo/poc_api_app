@@ -1,6 +1,9 @@
 # encoding: UTF-8
 require 'spec_helper'
 
+# XXX :
+# Request spec related to application_controller.
+# Note: related to old PoC version which used Devise auth token.
 describe 'Application' do
 
   let!(:user) { FactoryGirl.create(:user) }

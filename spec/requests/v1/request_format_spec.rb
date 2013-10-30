@@ -1,6 +1,8 @@
 # encoding: UTF-8
 require 'spec_helper'
 
+# XXX :
+# Related to request format validation.
 describe 'Request' do
 
   let(:user) { FactoryGirl.create(:user) }

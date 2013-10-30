@@ -3,6 +3,7 @@ require 'factory_girl'
 
 FactoryGirl.define do
 
+  # XXX : Classic factory
   factory :user do
     email { Faker::Internet.email }
     password 'please'

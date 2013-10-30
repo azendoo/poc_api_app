@@ -1,3 +1,7 @@
+# encoding: UTF-8
+# XXX :
+# Override Devise's failure app behavior to
+# render json responses instead of pure HTML.
 class CustomFailure < Devise::FailureApp
   def respond
     http_auth

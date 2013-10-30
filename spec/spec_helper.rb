@@ -21,9 +21,11 @@ Spork.prefork do
 
   RSpec.configure do |config|
 
-    # various helpers for API
+    # XXX :
+    # Various helpers for API. They're only matching old PoC version.
     config.include(APIHelpers)
 
+    # XXX :
     # Why do we need to purge mongo collections with two passes ?
     # ... because of PRY which frequently goes crazy and skips all
     # the testing process !

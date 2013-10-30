@@ -1,7 +1,13 @@
 # encoding: utf-8
 module Api
+  # XXX:
   # ActiveModel::Serializer customizations in order to
-  # handle Serializers versioning via namespaces :
+  # handle Serializers versioning via namespaces. That huge monkey patching
+  # was not tested on the recent refactoring of AMS project by spastorino, but
+  # perfectly worked before. See the following link for more informations on
+  # recent AMS changes :
+  # http://blog.wyeworks.com/2013/10/15/active_model_serializers_rewrite/
+
   module Serializer
     def namespace
       self.class.to_s.deconstantize

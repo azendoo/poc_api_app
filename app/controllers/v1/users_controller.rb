@@ -1,4 +1,4 @@
-# encoding: UTF-8
+# encoding UTF-8
 class V1::UsersController < ApplicationController
   respond_to :json
 

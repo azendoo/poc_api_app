@@ -11,28 +11,31 @@ class V1::TokensController < Devise::SessionsController
   skip_before_filter :check_token_timeout
   skip_after_filter :update_last_activity, only: [:create]
 
+  # XXX :
+  # I guess that authentication should be entirely done by the OAuth Provider.
+  # That method was the beginning of a version based on Doorkeeper's access_token.
+  # It should be updated or removed.
   def create
-      authenticate_from_credentials!(params[:email], params[:password])
+    authenticate_from_credentials!(params[:email], params[:password])
 
-      if !current_user.nil?
-        token_infos = current_user.access_tokens.first
-
-        render json: {
-          auth_token: token_infos.token,
-          expires_in: token_infos.expires_in
-        }, status: :ok
-      else
-        render json: {
-          errors: 'Invalid email or password'
-        }, status: :unauthorized
-      end
+    if current_user.nil?
+      render json: {
+        errors: 'Invalid email or password'
+      }, status: :unauthorized
+    else
+      token_infos = current_user.access_tokens.first
+      render json: {
+        token: token_infos.token,
+        expires_in: token_infos.expires_in
+      }, status: :ok
+    end
   end
 
+  # XXX :
+  # Old Devise version.
+  # Should reset Doorkeeper access token using the refresh token.
+  # Except if everything related to authentication is now on our Provider...
   def destroy
-    # since we are dealing with a devise controller
-    # we can't use 'authenticate_user!' method, thus
-    # we must directly call warden.authenticate :
-
     current_token = fetch_token(request)
 
     current_user = User.where(authentication_token: current_token).first

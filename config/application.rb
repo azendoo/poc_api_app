@@ -2,6 +2,8 @@ require File.expand_path('../boot', __FILE__)
 
 require "rails"
 
+# XXX : special require loop for minimal use
+# of sub-frameworks and controller modules.
 %w(
   action_controller
   action_mailer
@@ -65,8 +67,15 @@ module PocApiApp
     # in your app. As such, your models will need to explicitly whitelist or blacklist accessible
     # parameters by using an attr_accessible or attr_protected declaration.
     # config.active_record.whitelist_attributes = true
+
+    # XXX :
+    # Explicit inclusion of removed (from rails-api) but required middlewares
+    # also removed a middleware related to exception rendering
     config.middleware.use Rack::MethodOverride
     config.middleware.use ActionDispatch::Flash
+    config.middleware.delete ActionDispatch::DebugExceptions
+
+    # XXX : CORS middle
     config.middleware.insert_before Warden::Manager, Rack::Cors do
       allow do
         origins '*'
@@ -74,8 +83,9 @@ module PocApiApp
       end
     end
 
-    config.middleware.delete ActionDispatch::DebugExceptions
 
+    # XXX :
+    # All Devise controllers should respond to JSON format.
     config.to_prepare do
       DeviseController.respond_to :json
     end

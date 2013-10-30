@@ -1,3 +1,7 @@
+# encoding: UTF-8
+# XXX :
+# Override ShowExceptions behavior to render
+# pure JSON for exceptions and routing errors.
 class ActionDispatch::ShowExceptions
   def call(env)
     status, headers, body = @app.call(env)

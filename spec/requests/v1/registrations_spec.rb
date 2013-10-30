@@ -1,6 +1,9 @@
 # encoding: UTF-8
 require 'spec_helper'
 
+# XXX :
+# Request spec related to registration controller.
+# Note: related to old PoC version which used Devise auth token.
 describe 'V1::Registrations' do
 
   let(:user) { FactoryGirl.build(:user) }

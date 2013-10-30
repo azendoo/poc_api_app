@@ -1,6 +1,7 @@
 # encoding: UTF-8
 require 'spec_helper'
 
+# XXX : Dumb model testing.
 describe User do
 
   before(:each) do

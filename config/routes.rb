@@ -2,7 +2,7 @@ PocApiApp::Application.routes.draw do
 
   root to: "home#index"
 
-  # NOTE :
+  # XXX :
   # routes under your default version show up twice when running rake routes
   # This is due to the fact that Versionist adds another scope to your routes
   # to handle the default case. Unfortunately rake routes does not show you enough
@@ -12,8 +12,10 @@ PocApiApp::Application.routes.draw do
   # API V1 routes
   api_version(:module => "V1", :header => {:name => "Accept", :value => Mime::API_V1}, :default => true) do
 
-    # rewrite devise behavior
-    devise_for :users, controllers: { sessions: "tokens" },
+    # XXX :
+    # Rewrite devise behavior
+    # Should be useless once you are doing full authentication on provider side.
+     devise_for :users, controllers: { sessions: "tokens" },
       skip: [:sessions, :registrations, :confirmation, :password],
       defaults: { format: 'json' }
 
@@ -33,7 +35,9 @@ PocApiApp::Application.routes.draw do
   # API V2 routes
   api_version(:module => "V2", :header => {:name => "Accept", :value => Mime::API_V2}) do
 
-    # rewrite devise behavior
+    # XXX :
+    # Rewrite devise behavior
+    # Should be useless once you are doing full authentication on provider side.
     devise_for :users, controllers: { sessions: "tokens" },
       skip: [:sessions, :registrations, :confirmation, :password],
       defaults: { format: 'json' }

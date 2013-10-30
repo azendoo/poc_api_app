@@ -1,7 +1,11 @@
 # encoding: UTF-8
 require 'spec_helper'
 
-describe 'V1::Users' do
+# XXX :
+# Request specs for Users controller.
+# It uses 'json-spec' to validate responses.
+# Note: related to old PoC version which used Devise auth token.
+ddescribe 'V1::Users' do
 
   let(:user) { FactoryGirl.create(:user) }
   let(:json_response) { response.body }

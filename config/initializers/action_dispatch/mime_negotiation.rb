@@ -1,3 +1,8 @@
+# encoding: UTF-8
+# XXX :
+# Customization of ActionDispatch's MIME type negotation.
+# The following modification allows us to default on application/json type
+# if Content-Type header of a HTTP request isn't supported (cf. whitelist).
 module ActionDispatch
   module Http
     module MimeNegotiation

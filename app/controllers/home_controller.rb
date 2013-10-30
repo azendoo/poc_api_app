@@ -8,6 +8,8 @@ class HomeController < ApplicationController
   skip_before_filter :check_token_timeout
   skip_after_filter :update_last_activity
 
+  # XXX : just for fun. 
+  # A hypermedia flavor Github's style.
   def index
     root_representation = {
       login_url:  login_url,

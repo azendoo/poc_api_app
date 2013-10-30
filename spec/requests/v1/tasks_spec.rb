@@ -1,6 +1,10 @@
 # encoding: UTF-8
 require 'spec_helper'
 
+# XXX :
+# Request spec for Tasks controller.
+# It uses 'json-spec' to validate responses.
+# Note: related to old PoC version which used Devise auth token.
 describe 'V1::Tasks' do
 
   let(:user) { FactoryGirl.create(:user) }

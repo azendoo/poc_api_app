@@ -1,6 +1,7 @@
 # encoding: UTF-8
 require 'spec_helper'
 
+# XXX : use json_spec to validate our serializers.
 describe V1::TaskSerializer do
 
   let(:task) { FactoryGirl.create(:task) }

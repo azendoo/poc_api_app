@@ -1,12 +1,12 @@
-Rake::Task["db:drop"].invoke
-
-user1 = User.create(email: "tbishop@total.com", password: "please")
-puts "User #{user1.email} account created."
-
-user2 = User.create(email: "robin@azendoo.com", password: "please")
-puts "User #{user2.email} account created."
+# encoding: UTF-8
+# XXX :
+# Quick script to generate tasks
+# Should be improved.
+user1 = User.first
+user2 = User.last
 
 task  = user1.tasks.new(label: "This is a task")
+
 task.save!
 puts "New task created : #{task.label}"
 
